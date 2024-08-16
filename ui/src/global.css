@@ -1,0 +1,33 @@
+.parent-scroll-area-react {
+  scroll-snap-type: mandatory !important;
+  scroll-padding: 20px;
+
+  /* scroll-padding-top: 100px; */
+}
+.scroll-area-react {
+  /* scroll-snap-align: top !important; */
+  scroll-snap-stop: always;
+
+  scroll-padding: 20px;
+}
+html {
+  scroll-snap-type: y mandatory;
+}
+.app__videos {
+  position: relative;
+  /* height: 90vh;
+  width: 100%;
+  max-width: 450px; */
+  scroll-snap-points-y: repeat(100vh);
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.app__videos::-webkit-scrollbar {
+  display: none;
+}
+/* for IE Safari*/
+.app__videos {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
