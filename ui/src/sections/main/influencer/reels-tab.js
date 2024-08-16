@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Grid, Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 import { useCallback } from 'react';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useRouter } from 'src/routes/hook';
@@ -25,9 +25,40 @@ export default function ReelsTab({ reel }) {
   return (
     <>
       {!mdUp && (
-        <Grid container item md={5} xs={12} justifyContent="center" alignItems="center">
-          <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
-        </Grid>
+        // <Grid container item md={5} xs={12} justifyContent="center" alignItems="center">
+        //   <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
+        // </Grid>
+        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{position:'relative'}}>
+          <Box
+            sx={{
+              width: '100%',
+              height: 'auto',
+              backgroundColor: 'black',
+              position: 'relative',
+            }}
+          >
+            <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
+          </Box>
+          <Grid container spacing={2} justifyContent="center">
+            {products?.map((product) => (
+              <Grid
+                key={product.id}
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                sx={{ padding: 1, position:'absolute', bottom:60, width:'100%', mx:'auto' }}
+              >
+                <ProductList
+                  product={product}
+                  handleViewProductDetails={() => {
+                    handleViewProductDetails(product.id, product.brandId);
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Stack>
       )}
       {mdUp && (
         <Stack

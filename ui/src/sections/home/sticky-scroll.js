@@ -107,14 +107,24 @@ export default function StickyScroll() {
                     </Typography>
                   </h2>
                 </div>
-                <img
-                  // src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min.png"
+                {/* <img
+                  src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min.png"
                   loading="lazy"
                   sizes="(max-width: 479px) 100vw, (max-width: 767px) 76vw, 100vw"
                   // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d776979e2a48db19e4_Phone_Illustration%2002-min.png 1764w"
                   alt=""
                   className="grid-scrolling-image img2 phone"
-                />
+                /> */}
+                <img
+              // eslint-disable-next-line no-octal-escape
+              src="assets\images\home\7.png"
+              loading="lazy"
+              data-w-id="9784404c-529e-28d5-7ea7-926a9dc084d8"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              alt=""
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png 1764w"
+              className="grid-scrolling-image img2 phone"
+            />
                 <div className="margin-24px">
                   <div className="text-b1">
                     <Typography
@@ -163,6 +173,16 @@ export default function StickyScroll() {
                   alt=""
                   className="grid-scrolling-image img3 phone"
                 /> */}
+                <img
+              // eslint-disable-next-line no-octal-escape
+              src="assets\images\home\5.png"
+              loading="lazy"
+              data-w-id="09def63f-a30c-fd71-8d86-f9f5b1685295"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              alt=""
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min.png 1764w"
+              className="grid-scrolling-image img5 phone"
+            />
                 <div className="margin-24px">
                   <div className="text-b1">
                     <Typography
@@ -211,6 +231,16 @@ export default function StickyScroll() {
                   alt=""
                   className="grid-scrolling-image img4 phone"
                 /> */}
+                <img
+              // eslint-disable-next-line no-octal-escape
+              src="assets\images\home\4.png"
+              loading="lazy"
+              data-w-id="73c255e3-3588-78b5-69ef-b99789066867"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              alt=""
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min.png 1767w"
+              className="grid-scrolling-image img4 phone"
+            />
                 <div className="margin-24px">
                   <div className="text-b1">
                     <Typography
@@ -250,7 +280,6 @@ export default function StickyScroll() {
                       Elevate Brilliance: Let Data Guide Your Impact.
                     </Typography>
                   </h2>
-                </div>
                 {/* <img
                   src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d85d8d1c22a67eb203_Phone_Illustration%2005-min.png"
                   loading="lazy"
@@ -259,6 +288,17 @@ export default function StickyScroll() {
                   alt=""
                   className="grid-scrolling-image img5 phone"
                 /> */}
+                <img
+              // eslint-disable-next-line no-octal-escape
+              src="assets\images\home\3.png"
+              loading="lazy"
+              data-w-id="e8201f2d-d4e1-11e9-a839-da21b86fc407"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              alt=""
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f09deec370ebca63b_Illustration%2005-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f09deec370ebca63b_Illustration%2005-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f09deec370ebca63b_Illustration%2005-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f09deec370ebca63b_Illustration%2005-min.png 1764w"
+              className="grid-scrolling-image img3 phone"
+            />
+                </div>
                 <div className="margin-24px">
                   <div className="text-b1">
                     <Typography
@@ -307,6 +347,16 @@ export default function StickyScroll() {
                   alt=""
                   className="grid-scrolling-image img6 phone"
                 /> */}
+                <img
+              // eslint-disable-next-line no-octal-escape
+              src="assets\images\home\2.png"
+              loading="lazy"
+              data-w-id="09b48629-9053-accd-6e40-b8149334bb80"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              alt=""
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f116ccf58832447ec_Illustration%2006-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f116ccf58832447ec_Illustration%2006-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f116ccf58832447ec_Illustration%2006-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f116ccf58832447ec_Illustration%2006-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773f116ccf58832447ec_Illustration%2006-min.png 1764w"
+              className="grid-scrolling-image img2 phone"
+            />
                 <div className="margin-24px">
                   <div className="text-b1">
                     <Typography

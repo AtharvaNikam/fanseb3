@@ -172,7 +172,7 @@ export default function HomeHero() {
           }}
           style={{
             fontFamily: 'Poppins',
-            fontSize: '72px',
+            fontSize: '68px',
             fontWeight: '500',
             lineHeight: '80px',
             letterSpacing: '-4px',
@@ -182,7 +182,7 @@ export default function HomeHero() {
           }}
         >
           <ReactTyped
-            strings={['love', 'fashion', 'style', 'recommendations']}
+            strings={['love', 'fashion', 'style', 'recommend']}
             typeSpeed={80}
             loop
             backSpeed={70}

@@ -21,6 +21,7 @@ const RegistrationForm = () => {
     userName: '',
     password: '',
     contactNo: '',
+    permissions: ['customer'],
     // address:'',
     // country:'',
     // comapny:'',
@@ -85,6 +86,7 @@ const RegistrationForm = () => {
         password: data.password,
         contactNo: data.contactNo,
         isActive: true,
+        permissions:['customer'],
         // isInfluncer: optionValue === 'influencer',
       };
       console.log('🚀 ~ inputData:', inputData);

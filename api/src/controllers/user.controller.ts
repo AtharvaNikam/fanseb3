@@ -385,30 +385,42 @@ export class UserController {
     @requestBody({})
     otpOptions: any,
   ): Promise<object> {
+    console.log('otp option',otpOptions)
     const user = await this.userRepository.findOne({
       where: {
         email: otpOptions.email,
       },
     });
+
+    console.log('otp option1',user);
+
     if (user) {
       const now = new Date();
       const expire_date = new Date(user.otpExpireAt);
       const encryptedPassword = await this.hasher.hashPassword(
         otpOptions.password,
       );
+      console.log('otp option2',encryptedPassword);
+
+      const updatedData = {
+        ...user,
+        password : encryptedPassword
+      }
+
+      console.log('otp option3',updatedData)
+
+
       if (now <= expire_date && otpOptions.otp === user.otp) {
-        await this.userRepository.updateById(user.id, {
-          password: encryptedPassword,
-        });
+        await this.userRepository.updateById(user.id, updatedData);
+        const response = await this.userRepository.findById(user.id);
+        console.log('otp option4',response);
+
         return {
           success: true,
           message: 'otp verification successfull',
         };
       } else {
-        return {
-          success: false,
-          error: 'otp verification failed',
-        };
+        throw new HttpErrors.BadRequest("Otp doesnt match");
       }
     } else {
       throw new HttpErrors.BadRequest("Email Doesn't Exists");
