@@ -40,7 +40,7 @@ export default function AccountGeneral({ user }) {
 
   const defaultValues = {
     displayName: user?.displayName || '',
-    contactNo: user?.contactNo,
+    contactNo: user?.contactNo ? String(user.contactNo) : '',
     bio: user?.userProfile?.bio || '',
     fileName: user?.userProfile?.avatar?.fileName || null,
     fileUrl: user?.userProfile?.avatar?.fileUrl || null,
@@ -128,7 +128,7 @@ export default function AccountGeneral({ user }) {
   useEffect(() => {
     // Set default values using setValue
     setValue('displayName', user?.displayName);
-    setValue('contactNo', user?.contactNo);
+    setValue('contactNo', user?.contactNo ? String(user.contactNo) : '');
     setValue('fileUrl', user?.userProfile?.avatar?.fileUrl);
     console.log('all reset');
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -179,7 +179,7 @@ export default function AccountGeneral({ user }) {
                 <CardHeader title="Information" />
                 <Stack spacing={3} sx={{ p: 3 }}>
                   <RHFTextField name="displayName" label="Name" />
-                  <RHFTextField name="contactNo" label="Contact Number" />
+                  <RHFTextField name="contactNo" label="Contact Number" type="number" />
                   <RHFTextField name="bio" multiline rows={4} label="Bio" />
                 </Stack>
               </Card>

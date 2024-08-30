@@ -5,6 +5,9 @@ import { useCallback } from 'react';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useRouter } from 'src/routes/hook';
 import Videos from 'src/sections/common/reel-player/video-player';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import SwiperCore from 'swiper/core';
 import ProductList from '../common/product-list';
 
 // ----------------------------------------------------------------------
@@ -21,6 +24,8 @@ export default function ReelsTab({ reel }) {
     [router]
   );
   const mdUp = useResponsive('up', 'md');
+
+  SwiperCore.use([Autoplay]);
 
   return (
     <>
@@ -39,7 +44,7 @@ export default function ReelsTab({ reel }) {
           >
             <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
           </Box>
-          <Grid container spacing={2} justifyContent="center">
+          {/* <Grid container spacing={2} justifyContent="center">
             {products?.map((product) => (
               <Grid
                 key={product.id}
@@ -57,7 +62,21 @@ export default function ReelsTab({ reel }) {
                 />
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
+          <Box sx={{ padding: 1, position: 'absolute', bottom: 60, width: '100%', mx: 'auto' }}>
+            <Swiper spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 3000 }}>
+              {products?.map((product) => (
+                <SwiperSlide key={product.id}>
+                  <ProductList
+                    product={product}
+                    handleViewProductDetails={() => {
+                      handleViewProductDetails(product.id, product.brandId);
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
         </Stack>
       )}
       {mdUp && (

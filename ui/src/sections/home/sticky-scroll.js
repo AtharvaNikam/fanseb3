@@ -1,8 +1,9 @@
 /* eslint-disable no-plusplus */
 
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import './sticky-scroll.css';
+import { useNavigate } from "react-router-dom"; 
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -18,6 +19,8 @@ export default function StickyScroll() {
       const sectionPositions = Array.from(sections).map(
         (section) => section.getBoundingClientRect().top + scrollPosition
       );
+
+      
 
       // Find the index of the section closest to the top of the viewport
       let closestIndex = 0;
@@ -39,6 +42,12 @@ export default function StickyScroll() {
     };
   }, []);
   // console.log(activeIndex);
+  const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    navigate("/admin/register");  // Navigate to the desired path
+  };
+
+
   return (
     <div className="section scroll-section">
       <div className="site-wrapper">
@@ -90,9 +99,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
@@ -148,9 +157,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer" onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
@@ -206,9 +215,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
@@ -264,9 +273,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
@@ -322,9 +331,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
@@ -380,9 +389,9 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <a target="_blank" className="button-light w-button" rel="noreferrer">
+                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
-                </a>
+                </Button>
               </div>
             </div>
           </div>

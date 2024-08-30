@@ -206,14 +206,14 @@ export default function UserListView() {
         };
 
         try {
-          await axiosInstance.patch(`/products/${_id}`, inputData);
-          // Show success notification
-          const successMessage = isStatus ? 'Publish successfully!' : 'Draft successfully!';
+          const response = await axiosInstance.patch(`/products/${_id}`, inputData);
+          console.log('API Response:', response);
+          const successMessage = isStatus ? 'Published successfully!' : 'Draft saved successfully!';
           enqueueSnackbar(successMessage, { variant: 'success' });
         } catch (error) {
           enqueueSnackbar('Error occurred!', { variant: 'error' });
           console.error('Error updating product status:', error);
-
+          // Revert the state if the API call fails
           setTableData(tableData);
         }
       }

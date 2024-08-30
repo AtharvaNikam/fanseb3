@@ -78,6 +78,12 @@ const RegistrationForm = () => {
     // }
     try {
       // Build inputData
+      let permissions = ['influencer']; // default permission
+      if (optionValue === 'influencer') {
+        permissions = ['influencer'];
+      } else if (optionValue === 'brand') {
+        permissions = ['brand'];
+      }
       const inputData = {
         name: data.name,
         email: data.email,
@@ -86,6 +92,7 @@ const RegistrationForm = () => {
         contactNo: data.contactNo,
         isActive: false,
         isInfluncer: optionValue === 'influencer',
+        permissions,
       };
       console.log('🚀 ~ inputData:', inputData);
 
@@ -93,7 +100,7 @@ const RegistrationForm = () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
         await axiosInstance.post(`/register`, inputData);
         // Show success notification
-        enqueueSnackbar('User added successfully!', { variant: 'success' });
+        enqueueSnackbar('thank you ! your account has been created successfully', { variant: 'success' });
         router.push(paths.admin.login);
         reset();
 

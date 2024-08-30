@@ -43,70 +43,70 @@ export default function BrandsSlider() {
       <div className="brand-slider">
         <div className="slide-track">
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_1.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_2.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_3.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_4.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_5.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_6.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_7.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_8.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_9.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_10.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_11.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_1.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_2.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_3.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_4.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_5.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_6.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_7.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_8.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_9.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.png" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_10.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.pngg" />
           </div>
           <div className="slide">
-            <Box component="img" src="assets\images\brands\slider\img_11.png" />
+            <Box component="img" src="assets\images\brands\slider\lyonbeauty1.pngg" />
           </div>
         </div>
       </div>

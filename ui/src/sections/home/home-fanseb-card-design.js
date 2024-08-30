@@ -5,6 +5,7 @@ import { Box, useTheme } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { HOST_API } from 'src/config-global';
+import { useNavigate } from 'react-router-dom';
 import CarouselCenterMode from './carousel-center-mode';
 
 // ----------------------------------------------------------------------
@@ -15,6 +16,11 @@ export default function CardDesign() {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   const [influencers, setInfluencers] = useState([]);
+  const navigate = useNavigate();
+
+  const handleGetStartedClick = () => {
+    navigate("/admin/register");  // Navigate to the desired path
+  };
   useEffect(() => {
     async function fetchAllInfluencers() {
       try {
@@ -91,6 +97,7 @@ export default function CardDesign() {
           // background: 'linear-gradient(90deg, #0171ED 0%, #D001FF 100%)',
           background: 'white',
         }}
+        onClick={handleGetStartedClick}
       >
         <Typography
           style={{

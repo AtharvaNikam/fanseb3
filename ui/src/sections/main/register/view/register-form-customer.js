@@ -95,7 +95,7 @@ const RegistrationForm = () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
         await axiosInstance.post(`/register`, inputData);
         // Show success notification
-        enqueueSnackbar('User added successfully!', { variant: 'success' });
+        enqueueSnackbar('thank you ! your account has been created successfully', { variant: 'success' });
         router.push(paths.auth.customer.login);
         reset();
     } catch (error) {

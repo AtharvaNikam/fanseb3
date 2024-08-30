@@ -11,6 +11,7 @@ import {
   del,
   get,
   getModelSchemaRef,
+  HttpErrors,
   param,
   patch,
   post,
@@ -259,11 +260,27 @@ export class UserProductsController {
     @requestBody()
     products: any,
   ): Promise<any> {
-    await this.productsRepository.updateById(id, products);
-    return Promise.resolve({
-      success: true,
-      message: 'Product updated successfully',
-    });
+    // await this.productsRepository.updateById(id, products);
+    // return Promise.resolve({
+    //   success: true,
+    //   message: 'Product updated successfully',
+    // });
+    try {
+      console.log('products',products.user.status);
+      const productData = await this.productsRepository.findById(id);
+      const updatedData = {
+        ...productData,
+        status : products.user.status
+      }
+      await this.productsRepository.updateById(id, updatedData);
+      return {
+        success: true,
+        message: 'Product updated successfully',
+      };
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw new HttpErrors.BadRequest('Unable to update product');
+    }
   }
 
   @post('/products/createAll')
