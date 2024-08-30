@@ -18,6 +18,7 @@ import Label from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({ row, selected, onUpdateUserPermission, onActivateUser }) {
+  console.log('row',row);
   const { name, avatarUrl, permissions, isActive, email } = row;
   const [confirmAdmin, setConfirmAdmin] = useState({
     value: false,
@@ -31,7 +32,7 @@ export default function UserTableRow({ row, selected, onUpdateUserPermission, on
     onFalse: () => setConfirmBlock({ ...confirmBlock, value: false }),
   });
 
-  const isAdmin = permissions.includes('admin');
+  const isAdmin = permissions.some(permission => permission.toLowerCase() === "admin");
 
   return (
     <>

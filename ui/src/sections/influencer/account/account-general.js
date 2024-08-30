@@ -163,7 +163,7 @@ export default function AccountGeneral({ user }) {
               <RHFTextField name="bio" multiline rows={4} label="Bio" />
 
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                Save Profile
+                
               </LoadingButton>
             </Stack>
           </Card>

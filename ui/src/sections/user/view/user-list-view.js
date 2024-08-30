@@ -74,7 +74,7 @@ export default function UserListView() {
   const { enqueueSnackbar } = useSnackbar();
   const { users } = useGetUsers();
 
-  const [tableData, setTableData] = useState(users);
+  const [tableData, setTableData] = useState([]);
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -83,6 +83,12 @@ export default function UserListView() {
     comparator: getComparator(table.order, table.orderBy),
     filters,
   });
+
+  useEffect(()=>{
+    if(users){
+      setTableData(users)
+    }
+  },[users])
 
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,

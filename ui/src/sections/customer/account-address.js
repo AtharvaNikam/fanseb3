@@ -41,7 +41,7 @@ export default function AccountAddress({ user }) {
 
   const defaultValues = {
     displayName: user?.displayName || '',
-    contactNo: user?.contactNov,
+      contactNo: user?.contactNov || '',
     bio: user?.userProfile?.bio || '',
     fileName: user?.userProfile?.avatar?.fileName || null,
     fileUrl: user?.userProfile?.avatar?.fileUrl || null,
