@@ -40,11 +40,7 @@ export default function AccountGeneral({ user }) {
 
   const defaultValues = {
     displayName: user?.displayName || '',
-<<<<<<< Updated upstream
     contactNo: user?.contactNo ? String(user.contactNo) : '',
-=======
-    contactNo: user?.contactNo || undefined,
->>>>>>> Stashed changes
     bio: user?.userProfile?.bio || '',
     fileName: user?.userProfile?.avatar?.fileName || null,
     fileUrl: user?.userProfile?.avatar?.fileUrl || null,
