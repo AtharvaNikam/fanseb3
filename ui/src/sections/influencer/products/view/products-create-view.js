@@ -11,7 +11,7 @@ import ProductsNewEditDetails from '../products-new-edit-details';
 
 // ----------------------------------------------------------------------
 
-export default function ProductsCreateView() {
+export default function ProductsCreateView() {  // product create view.
   const settings = useSettingsContext();
   const params = useParams();
 
