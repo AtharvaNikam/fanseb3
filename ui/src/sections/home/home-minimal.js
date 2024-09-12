@@ -2,6 +2,7 @@
 // @mui
 import Typography from '@mui/material/Typography';
 // components
+import { useNavigate } from 'react-router';
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import Slider from 'rc-slider';
@@ -76,6 +77,12 @@ export default function HomeMinimal() {
     setUpperSlider((upperValue - 500) * 0.00010005002);
     setLowerSlider((lowerValue - 10) * 1.111);
   }, [upperValue, lowerValue]);
+
+  const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    navigate("/admin/register");  // Navigate to the desired path
+  };
+
   return (
     <Grid container padding={{ xs: '24px 16px', md: '52px 48px' }}>
       <Grid item xs={12} md={12}>
@@ -90,6 +97,7 @@ export default function HomeMinimal() {
             fontWeight: '600',
             lineHeight: '100%' /* 48px */,
           }}
+          onClick={handleGetStartedClick}
         >
           Let’s hunt the treasure ?
         </Typography>
@@ -294,6 +302,7 @@ export default function HomeMinimal() {
                 backgroundColor: 'white',
                 // backgroundImage: 'linear-gradient(90deg, #0171ed 0%, #d001ff 100%)',
               }}
+              onClick={handleGetStartedClick}
             >
               <span
                 style={{

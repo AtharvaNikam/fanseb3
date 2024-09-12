@@ -52,16 +52,15 @@ export default function AboutTestimonials() {
 
       <m.div variants={varFade().inUp}>
         <Typography variant="h2" sx={{ my: 3, color: 'common.white' }}>
-          Who love <br />
-          my work
+          what we are <br />
+          committed towards ?
         </Typography>
       </m.div>
 
       <m.div variants={varFade().inUp}>
         <Typography sx={{ color: 'common.white' }}>
-          Our goal is to create a product and service that you’re satisfied with and use it every
-          day. This is why we’re constantly working on our services to make it better every day and
-          really listen to what our users has to say.
+        Creators possess a magical gift: the ability to ignite countless souls, 
+        lighting the path toward their brightest futures !
         </Typography>
       </m.div>
 

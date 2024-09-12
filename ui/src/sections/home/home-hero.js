@@ -2,6 +2,7 @@ import { useScroll } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ReactTyped } from 'react-typed';
+import { useNavigate } from 'react-router';
 // @mui
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -129,6 +130,11 @@ export default function HomeHero() {
       setPercent(Math.floor(scrollPercent));
     });
   }, [scrollY]);
+
+  const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    navigate("/admin/register");  // Navigate to the desired path
+  };
 
   useEffect(() => {
     getScroll();
@@ -259,6 +265,7 @@ export default function HomeHero() {
               textAlign: 'left',
               color: 'black',
             }}
+            onClick={handleGetStartedClick}
           >
             Get Started
           </Box>

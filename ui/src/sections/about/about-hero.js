@@ -35,13 +35,13 @@ export default function AboutHero() {
             },
           }}
         >
-          <TextAnimate text="Who" variants={varFade().inRight} sx={{ color: 'primary.main' }} />
+          <TextAnimate text="Our" variants={varFade().inRight} sx={{ color: 'primary.main' }} />
 
           <br />
 
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.white' }}>
-            <TextAnimate text="we" />
-            <TextAnimate text="are?" />
+            <TextAnimate text="Core" />
+            <TextAnimate text=" Values ?" />
           </Stack>
 
           <m.div variants={varFade().inRight}>
@@ -53,8 +53,8 @@ export default function AboutHero() {
                 fontWeight: 'fontWeightSemiBold',
               }}
             >
-              Let&apos;s work together and
-              <br /> make awesome site easily
+              Social media addicts,
+              <br /> content - hungry scrolling junkies.
             </Typography>
           </m.div>
         </Box>

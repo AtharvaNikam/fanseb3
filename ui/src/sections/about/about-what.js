@@ -73,7 +73,7 @@ export default function AboutWhat() {
           </Grid>
         )}
 
-        <Grid xs={12} md={6} lg={5}>
+        {/* <Grid xs={12} md={6} lg={5}>
           <m.div variants={varFade().inRight}>
             <Typography variant="h2" sx={{ mb: 3 }}>
               What is Minimal?
@@ -125,7 +125,7 @@ export default function AboutWhat() {
               Our Work
             </Button>
           </m.div>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
     // </Box>
