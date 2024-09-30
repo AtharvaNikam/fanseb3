@@ -47,7 +47,7 @@ import UserTableToolbar from '../products-table-toolbar';
 const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...USER_STATUS_OPTIONS];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name' },
+  { id: 'name', label: 'Name1' },
   { id: 'brand', label: 'Brand', width: 220 },
   { id: 'gal', label: 'Product Gallery Type' },
   { id: 'unit', label: 'Price/Unit' },
@@ -165,7 +165,29 @@ export default function UserListView() {
   const handleDeleteRow = useCallback(
     async (id_b, id_r, deleteConfirm) => {
       await axiosInstance
-        .delete(`/brands/${id_b}/products`, id_r)
+        .delete(`/brands/${id_b}/products/${id_r}`)
+        .then((res) => {
+          enqueueSnackbar('Delete Success!');
+          refreshProducts();
+        })
+        .catch((err) => {
+          console.error(err);
+          enqueueSnackbar(
+            err.response.data.error.message
+              ? err.response.data.error.message
+              : 'something went wrong!',
+            { variant: 'error' }
+          );
+        });
+      deleteConfirm.onFalse();
+    },
+    [enqueueSnackbar, refreshProducts]
+  );
+
+  const handleDeleteRowByAdmin = useCallback(
+    async (id_r, deleteConfirm) => {
+      await axiosInstance
+        .delete(`/products/${id_r}`)
         .then((res) => {
           enqueueSnackbar('Delete Success!');
           refreshProducts();
@@ -323,7 +345,7 @@ export default function UserListView() {
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onEditRow={() => handleEditRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(id, row.id)}
+                        onDeleteRow={() => id ? handleDeleteRow(id, row.id) : handleDeleteRowByAdmin(row.id)}
                         onPublish={() => handlePublish(row.id)}
                       />
                     ))}

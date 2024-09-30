@@ -10,6 +10,7 @@ import {
   get,
   getModelSchemaRef,
   getWhereSchemaFor,
+  HttpErrors,
   param,
   patch,
   post,
@@ -21,6 +22,8 @@ import {
   ProductsRepository,
   ReviewsRepository,
 } from '../repositories';
+import { authenticate, AuthenticationBindings } from '@loopback/authentication';
+import { PermissionKeys } from '../authorization/permission-keys';
 
 export class BrandProductsController {
   constructor(
@@ -223,7 +226,7 @@ export class BrandProductsController {
     });
   }
 
-  @del('/brands/{id}/products', {
+  @del('/brands/{id}/products/{productId}', {
     responses: {
       '200': {
         description: 'Brand.Products DELETE success count',
@@ -233,9 +236,60 @@ export class BrandProductsController {
   })
   async delete(
     @param.path.number('id') id: number,
+    @param.path.number('productId') productId: number,
     @param.query.object('where', getWhereSchemaFor(Products))
     where?: Where<Products>,
-  ): Promise<Count> {
-    return this.brandRepository.products(id).delete(where);
+  ): Promise<any> {
+    try{
+      const product = await this.productsRepository.findById(productId);
+      if(product){
+        if(product.brandId === id){
+          await this.productsRepository.deleteById(productId);
+        }else{
+          throw new HttpErrors.BadRequest("Permission denied!, you cant delete this product");
+        }
+      }else{
+        throw new HttpErrors.NotFound("No product found with given id");
+      }
+    }catch(error){
+      throw error;
+    }
+  }
+
+  @authenticate({
+    strategy: 'jwt',
+    options: {
+      required: [
+        PermissionKeys.ADMIN,
+      ],
+    },
+  })
+  @del('/products/{productId}', {
+    responses: {
+      '200': {
+        description: 'Products DELETE success count',
+        content: {'application/json': {schema: CountSchema}},
+      },
+    },
+  })
+  async deleteProductByAdmin(
+    @param.path.number('productId') productId: number,
+    @param.query.object('where', getWhereSchemaFor(Products))
+    where?: Where<Products>,
+  ): Promise<any> {
+    try{
+      const product = await this.productsRepository.findById(productId);
+      if(product){
+        await this.productsRepository.deleteById(productId);
+        return{
+          success : true,
+          message : 'product deleted'
+        }
+      }else{
+        throw new HttpErrors.NotFound("No product found with given id");
+      }
+    }catch(error){
+      throw error;
+    }
   }
 }

@@ -164,8 +164,8 @@ export default function UserListView() {
   const handleDeleteRow = useCallback(
     async (id_b, id_r, deleteConfirm) => {
       await axiosInstance
-        .delete(`/brands/${id_b}/products?where[id]=${id_r}`)
-        .then((res) => {
+      .delete(`/brands/${id_b}/products/${id_r}`)
+      .then((res) => {
           enqueueSnackbar('Delete Success!');
           refreshProducts();
         })

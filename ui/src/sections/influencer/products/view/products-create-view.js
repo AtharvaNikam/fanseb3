@@ -18,7 +18,7 @@ export default function ProductsCreateView() {  // product create view.
   const { id } = params;
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
-      <CustomBreadcrumbs
+      <CustomBreadcrumbs  
         heading="Create New Product"
         links={[
           {

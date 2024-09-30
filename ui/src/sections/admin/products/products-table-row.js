@@ -18,6 +18,7 @@ import Label from 'src/components/label';
 // ----------------------------------------------------------------------
 
 export default function ProductTableRow({ row, selected, onEditRow, onDeleteRow, onPublish }) {
+  console.log(row);
   const { name, image, brand, product_type, unit, quantity, status } = row;
   const [confirmAdmin, setConfirmAdmin] = useState({
     value: false,
