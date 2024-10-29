@@ -113,7 +113,12 @@ export default function UserListView() {
   );
 
   const handleActivateUser = useCallback(
-    async (id) => {
+    async (id, commissionRate) => {
+      let commission = 0;
+
+      if(commissionRate){
+        commission = Number(commissionRate);
+      }
       const userIndex = tableData.findIndex((row) => row.id === id);
 
       if (userIndex !== -1) {
@@ -126,6 +131,7 @@ export default function UserListView() {
         const inputData = {
           user: {
             isActive: isActiveStatus,
+            commissionRate : commission,
           },
         };
 
@@ -303,7 +309,7 @@ export default function UserListView() {
                         row={row}
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
-                        onActivateUser={() => handleActivateUser(row.id)}
+                        onActivateUser={(commissionRate) => handleActivateUser(row.id, commissionRate)}
                         onUpdateUserPermission={() => handleUpdateUserPermission(row.id)}
                       />
                     ))}

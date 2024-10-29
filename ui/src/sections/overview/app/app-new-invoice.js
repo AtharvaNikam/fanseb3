@@ -92,11 +92,11 @@ function AppNewInvoiceRow({ row }) {
   return (
     <>
       <TableRow>
-        <TableCell>{row.invoiceNumber}</TableCell>
+        <TableCell>{row.trackingNumber}</TableCell>
 
-        <TableCell>{row.category}</TableCell>
+        <TableCell>{fCurrency(row.total)}</TableCell>
 
-        <TableCell>{fCurrency(row.price)}</TableCell>
+        <TableCell>{row.createdAt}</TableCell>
 
         <TableCell>
           <Label

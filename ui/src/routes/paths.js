@@ -65,6 +65,7 @@ export const paths = {
   faqSection:'/faq-section',
   ourInfo:'/our-info',
   returnPolicy:'return-policy',
+  productsList : '/products-list',
   post: {
     root: `/post`,
     details: (title) => `/post/${paramCase(title)}`,

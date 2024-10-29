@@ -12,6 +12,7 @@ import { useRouter } from 'src/routes/hook';
 // ----------------------------------------------------------------------
 
 export default function CarouselCenterMode({ data }) {
+  console.log('infuencer data',data);
   const router = useRouter();
   const carousel = useCarousel({
     slidesToShow: 3,

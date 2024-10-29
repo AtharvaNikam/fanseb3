@@ -171,16 +171,16 @@ export default function OrderStatusListView() {
             { name: 'Order Status', href: paths.admin_dashboard.orders_status.root },
             { name: 'List' },
           ]}
-          action={
-            <Button
-              component={RouterLink}
-              href={paths.admin_dashboard.orders_status.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              Add Order Status
-            </Button>
-          }
+          // action={
+          //   <Button
+          //     component={RouterLink}
+          //     href={paths.admin_dashboard.orders_status.new}
+          //     variant="contained"
+          //     startIcon={<Iconify icon="mingcute:add-line" />}
+          //   >
+          //     Add Order Status
+          //   </Button>
+          // }
           sx={{
             mb: { xs: 3, md: 5 },
           }}

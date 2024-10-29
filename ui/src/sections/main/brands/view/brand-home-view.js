@@ -188,7 +188,7 @@ export default function BrandsView() {
             fullWidth
             display="flex"
             justifyContent="center"
-            src="assets\images\brands\hero\f429225a437c38896ac5_Brands Hero.png"
+            src="assets\images\brands\hero\hero.png"
             alt="image not failed"
             style={{
               // height: '500px',

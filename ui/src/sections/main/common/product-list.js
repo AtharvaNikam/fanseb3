@@ -10,7 +10,7 @@ import IncrementerButton from 'src/sections/common/incrementer-button';
 import { addToCart, decreaseQuantity, increaseQuantity } from 'src/redux/slices/checkout';
 import { useCheckout } from 'src/sections/hooks';
 
-export default function ProductList({ product, handleViewProductDetails }) {
+export default function ProductList({ product, influencerId, handleViewProductDetails }) {
   const [displayProduct, setDisplayProduct] = useState(product);
   const dispatch = useDispatch();
   const { checkout } = useCheckout();
@@ -22,6 +22,9 @@ export default function ProductList({ product, handleViewProductDetails }) {
   const params = useParams();
   const currentInfluencerId = params?.influencerId;
 
+  console.log(currentInfluencerId);
+  console.log(product);
+
   const handleAddToWishlist = useCallback(() => {
     setWishlistItem((prev) => [...prev, displayProduct]);
   }, [displayProduct]);
@@ -29,7 +32,7 @@ export default function ProductList({ product, handleViewProductDetails }) {
   const handleAddCart = useCallback(() => {
     const newProduct = {
       id: displayProduct.id,
-      influencerId: currentInfluencerId,
+      influencerId: influencerId,
       brandId: displayProduct.brandId,
       name: displayProduct.name,
       description: displayProduct.description,
@@ -95,76 +98,12 @@ export default function ProductList({ product, handleViewProductDetails }) {
 
   if (isMobile) {
     return (
-      // <Box
-      //   sx={{
-      //     position: 'fixed', // Fixed to ensure it stays at the bottom
-      //     bottom: '200px',
-      //     left: 0,
-      //     width: '350px', // Adjusted to take full width
-      //     height: '200px', // Auto height to fit content
-      //     background: 'rgba(0, 0, 0, 0.5)',
-      //     borderRadius: '10px',
-      //     overflow: 'hidden',
-      //     display: 'flex',
-      //     flexDirection: 'column',
-      //     justifyContent: 'space-between',
-      //     padding: '10px',
-      //     color: '#fff',
-      //     zIndex: 999,
-      //   }}
-      // >
-      //   <img
-      //     alt="product_image"
-      //     src={displayProduct?.image?.fileUrl}
-      //     style={{
-      //       width: '35%',
-      //       height: '50%',
-      //       objectFit: 'cover',
-      //       borderRadius: '10px',
-      //     }}
-      //   />
-      //   <Typography
-      //     style={{
-      //       fontFamily: 'Rubik',
-      //       fontSize: '14px',
-      //       fontWeight: '600',
-      //       textAlign: 'center',
-      //       margin: '5px 0',
-      //     }}
-      //   >
-      //     {displayProduct?.name}
-      //   </Typography>
-      //   <Button
-      //     variant="contained"
-      //     size="small"
-      //     style={{
-      //       background: '#232321',
-      //       color: '#fff',
-      //       borderRadius: '8.517px',
-      //       fontSize: '12px',
-      //     }}
-      //     onClick={handleAddCart}
-      //   >
-      //     ADD TO CART - ₹
-      //     <span
-      //       style={{
-      //         color: '#D001FF',
-      //         fontSize: '12px',
-      //         marginLeft: '3px',
-      //         textTransform: 'uppercase',
-      //       }}
-      //     >
-      //       {displayProduct?.sale_price}
-      //     </span>
-      //   </Button>
-      // </Box>
       <Grid
       container
       spacing={2}
       sx={{
-        width: '102%', // Adjusted to take full width
-        maxHeight:'300px',
-        // left:'50px',
+        width: '100%', // Adjusted to take full width
+        maxHeight:'200px',
         marginLeft:'0%',
         height: '200px', // Adjusted height to fit content
         background: 'rgba(0, 0, 0, 0.5)',
@@ -172,35 +111,11 @@ export default function ProductList({ product, handleViewProductDetails }) {
         overflow: 'hidden',
         color: '#fff',
         zIndex: 999,
+        paddingLeft : '0px !important'
       }}
     >
-      <Grid item md={6} >
-        {/* <img
-          alt="product_image"
-          src={displayProduct?.image?.fileUrl}
-          style={{
-            width: '100%',
-            height: 'auto',
-            objectFit: 'cover',
-            borderRadius: '10px',
-          }}
-        /> */}
+      <Grid item md={6} sx={{paddingLeft : '10px !important'}}>
         <Box onClick={handleViewProductDetails}>
-        {/* <Label
-          sx={{
-            background: 'none',
-            top:10,
-            left:1,
-            position: 'absolute',
-            height: '15px',
-            marginTop: '0px',
-            padding: '10px',
-            cursor: 'pointer',
-          }}
-          onClick={handleAddToWishlist}
-        >
-          <Iconify icon="mdi:heart" width={24} color={wishlistItem ? '#ff5d6d' : '#787878'} />
-        </Label> */}
         <img
           alt="product_image"
           src={displayProduct?.image?.fileUrl}

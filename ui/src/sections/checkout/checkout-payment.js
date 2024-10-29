@@ -114,6 +114,7 @@ export default function CheckoutPayment({
     trigger();
 
     try {
+      console.log(cart);
       const inputData = {
         contact: !userCheck ? user?.contactNo : data?.verificationStatus?.phoneNumber,
         salesTax: taxAmount,
@@ -149,6 +150,8 @@ export default function CheckoutPayment({
           inventoryQuantity: item.inventoryQuantity,
         })),
       };
+
+      console.log(inputData);
       const res = await axiosInstance.post(`/orders`, inputData);
       if (res.data.success === false) {
         enqueueSnackbar(res.data.message, {

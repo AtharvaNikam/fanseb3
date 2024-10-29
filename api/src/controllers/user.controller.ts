@@ -18,7 +18,7 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {UserProfile} from '@loopback/security';
+import {Permission, UserProfile} from '@loopback/security';
 import * as _ from 'lodash';
 import {PermissionKeys} from '../authorization/permission-keys';
 import {FansebDataSource} from '../datasources';
@@ -26,6 +26,7 @@ import {EmailManagerBindings} from '../keys';
 import {User} from '../models';
 import {
   Credentials,
+  InfluencerBalancesRepository,
   UserProfileRepository,
   UserRepository,
 } from '../repositories';
@@ -49,6 +50,8 @@ export class UserController {
     public userRepository: UserRepository,
     @repository(UserProfileRepository)
     public userProfileRepository: UserProfileRepository,
+    @repository(InfluencerBalancesRepository)
+    public influencerBalancesRepository: InfluencerBalancesRepository,
     @inject('service.hasher')
     public hasher: BcryptHasher,
     @inject('service.user.service')
@@ -96,6 +99,9 @@ export class UserController {
       validateCredentials(_.pick(userData, ['email', 'password']));
       // userData.permissions = [PermissionKeys.ADMIN];
       userData.password = await this.hasher.hashPassword(userData.password);
+      if(userData.permissions.some(Permission => Permission.toLowerCase() === "influencer")){
+        userData.isInfluncer = true;
+      }
       const savedUser = await this.userRepository.create(userData, {
         transaction: tx,
       });
@@ -255,6 +261,7 @@ export class UserController {
                   name: {type: 'string'},
                   contactNo: {type: 'string'},
                   isActive: {type: 'boolean'},
+                  commissionRate: {type: 'number'}
                 },
               },
               // Include properties from the UserProfile model
@@ -284,6 +291,7 @@ export class UserController {
         isActive: boolean;
         otp?: string;
         otpExpireAt: string;
+        commissionRate: number;
       };
       userProfile?: {
         avatar?: object;
@@ -302,15 +310,31 @@ export class UserController {
     const existingUser = await this.userRepository.findById(id, {
       include: [{relation: 'userProfile'}],
     });
+
     if (!existingUser) {
       // Handle the case where the user doesn't exist
       // You may want to return an error response or handle it based on your requirements
       return;
     }
 
+    const isInfluencer = existingUser.permissions.some(permission => permission.toLowerCase() === "influencer");
+
+    const userData = user.user;
+
+    if(isInfluencer){
+      const influencerBalance = await this.influencerBalancesRepository.findOne({
+        where : {
+          influencerId : id
+        }
+      });
+
+      await this.influencerBalancesRepository.updateById(influencerBalance?.id, {
+        influencer_commision_rate : user.user.commissionRate
+      })
+    }
     // Update user information
     if (user.user) {
-      await this.userRepository.updateById(id, user.user);
+      await this.userRepository.updateById(id, userData);
     }
 
     // Update or create user profile information

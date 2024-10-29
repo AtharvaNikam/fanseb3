@@ -61,6 +61,7 @@ export class OrdersController {
     orders: any,
   ): Promise<any> {
     try {
+      console.log(orders);
       const trackingNumber = this.orderItemsRepository.generateTrackingId(8);
       const inputForOrder: Partial<Orders> = {
         trackingNumber: trackingNumber,
@@ -78,6 +79,9 @@ export class OrdersController {
         userId: orders.userId ? orders.userId : null,
       };
       const order = await this.ordersRepository.create(inputForOrder);
+
+      console.log('trackingId', trackingNumber);
+      console.log('order details', order);
 
       await Promise.all(
         orders.products.map(async (res: any) => {
@@ -196,52 +200,126 @@ export class OrdersController {
       // Wait for all child orders to be created
       const createdChildOrders = await Promise.all(childOrderPromises);
 
+      // let influencerAmount = 0;
+      // influencerWiseProducts.map(async (res: any) => {
+      //   const influencerBalance: any =
+      //     await this.influencerBalancesRepository.findOne({
+      //       where: {
+      //         influencerId: res.influencerId,
+      //       },
+      //     });
+      //   console.log('influencer Balance before update',influencerBalance);
+      //   if (influencerBalance) {
+      //     let influencerCommisionRate =
+      //       influencerBalance.influencer_commision_rate;
+      //     let influencerEarnings: any =
+      //       (res.totalSalesPrice * influencerCommisionRate) / 100;
+      //     influencerAmount += influencerEarnings;
+      //     let newInfluencerTotalEarnings =
+      //       influencerBalance.totalEarnings + influencerEarnings;
+      //     let newInfluencerCurrentBalance =
+      //       influencerBalance.currentBalance + influencerEarnings;
+      //     let newInfluencerTotalOrders = influencerBalance.totalOrders || 0 + 1;
+
+      //     await this.influencerBalancesRepository.updateById(
+      //       influencerBalance.id,
+      //       {
+      //         totalEarnings: newInfluencerTotalEarnings,
+      //         currentBalance: newInfluencerCurrentBalance,
+      //         totalOrders: newInfluencerTotalOrders,
+      //       },
+      //     );
+      //     const influencerbalance = await this.influencerBalancesRepository.findById(influencerBalance.id);
+      //     console.log('influencer balance after update', influencerbalance);
+      //   }
+      // });
+
+      // createdChildOrders.map(async (childOrder: any) => {
+      //   const balance = await this.brandBalancesRepository.findById(
+      //     childOrder.brandId,
+      //   );
+      //   console.log('brand balance before update', balance);
+      //   let adminCommissionRate: any = balance.adminCommissionRate;
+      //   let brandEarnings: any =
+      //     ((childOrder.total * (100 - adminCommissionRate)) / 100) - influencerAmount;
+      //   let newBrandTotalEarnings = balance.totalEarnings + brandEarnings;
+      //   let newCurrentBalance = balance.currentBalance + brandEarnings;
+      //   await this.brandBalancesRepository.updateById(balance.id, {
+      //     totalEarnings: newBrandTotalEarnings,
+      //     currentBalance: newCurrentBalance,
+      //   });
+      //   const response = await this.brandBalancesRepository.findById(childOrder.brandId);
+      //   console.log('brand balance after update', response);
+      // });
+
       createdChildOrders.map(async (childOrder: any) => {
-        const balance = await this.brandBalancesRepository.findById(
+        const brandBalance = await this.brandBalancesRepository.findById(
           childOrder.brandId,
         );
-        let adminCommissionRate: any = balance.adminCommissionRate;
-        let brandEarnings: any =
-          (childOrder.total * (100 - adminCommissionRate)) / 100;
-        let newBrandTotalEarnings = balance.totalEarnings + brandEarnings;
-        let newCurrentBalance = balance.currentBalance + brandEarnings;
-        await this.brandBalancesRepository.updateById(balance.id, {
+        console.log('brand balance before update', brandBalance);
+      
+        // Get only influencers associated with the current brand
+        const influencersForBrand = influencerWiseProducts.filter(
+          (product: any) => {
+            console.log('important console 1',product);
+            console.log('important console 2',childOrder);
+            return product.products.some((product : any) => product.brandId === childOrder.brandId)
+          }
+        );
+
+        console.log('influencersForBrand', influencersForBrand);
+      
+        let influencerAmountForBrand = 0;
+      
+        for (const product of influencersForBrand) {
+          const influencerBalance: any = await this.influencerBalancesRepository.findOne({
+            where: {
+              influencerId: product.influencerId,
+            },
+          });
+      
+          if (influencerBalance) {
+            let influencerCommissionRate = influencerBalance.influencer_commision_rate;
+            let influencerEarnings = (product.totalSalesPrice * influencerCommissionRate) / 100;
+            
+            influencerAmountForBrand += influencerEarnings;
+            
+            // Update influencer's balance details
+            let newInfluencerTotalEarnings = influencerBalance.totalEarnings + influencerEarnings;
+            let newInfluencerCurrentBalance = influencerBalance.currentBalance + influencerEarnings;
+            let newInfluencerTotalOrders = (influencerBalance.totalOrders || 0) + 1;
+      
+            await this.influencerBalancesRepository.updateById(
+              influencerBalance.id,
+              {
+                totalEarnings: newInfluencerTotalEarnings,
+                currentBalance: newInfluencerCurrentBalance,
+                totalOrders: newInfluencerTotalOrders,
+              },
+            );
+            
+            const updatedInfluencerBalance = await this.influencerBalancesRepository.findById(influencerBalance.id);
+            console.log('influencer balance after update', updatedInfluencerBalance);
+          }
+        }
+
+      
+        // Calculate brand earnings after deducting the correct influencer amount
+        let adminCommissionRate = brandBalance.adminCommissionRate;
+        let brandEarnings = ((childOrder.total * (100 - (adminCommissionRate || 0))) / 100) - influencerAmountForBrand;
+        let newBrandTotalEarnings = (brandBalance.totalEarnings || 0) + brandEarnings;
+        let newCurrentBalance = (brandBalance.currentBalance || 0) + brandEarnings;
+      
+        // Update brand's balance details
+        await this.brandBalancesRepository.updateById(brandBalance.id, {
           totalEarnings: newBrandTotalEarnings,
           currentBalance: newCurrentBalance,
         });
+      
+        const updatedBrandBalance = await this.brandBalancesRepository.findById(childOrder.brandId);
+        console.log('brand balance after update', updatedBrandBalance);
       });
-
-      influencerWiseProducts.map(async (res: any) => {
-        console.log(res);
-        const influencerBalance: any =
-          await this.influencerBalancesRepository.findOne({
-            where: {
-              influencerId: res.influencerId,
-            },
-          });
-        console.log(influencerBalance);
-        if (influencerBalance) {
-          let influencerCommisionRate =
-            influencerBalance.influencer_commision_rate;
-          let influencerEarnings: any =
-            (res.totalSalesPrice * influencerCommisionRate) / 100;
-          let newInfluencerTotalEarnings =
-            influencerBalance.totalEarnings + influencerEarnings;
-          let newInfluencerCurrentBalance =
-            influencerBalance.currentBalance + influencerEarnings;
-          let newInfluencerTotalOrders = influencerBalance.totalOrders || 0 + 1;
-
-          await this.influencerBalancesRepository.updateById(
-            influencerBalance.id,
-            {
-              totalEarnings: newInfluencerTotalEarnings,
-              currentBalance: newInfluencerCurrentBalance,
-              totalOrders: newInfluencerTotalOrders,
-            },
-          );
-        }
-      });
-
+      
       // Commit the transaction
 
       // Return the response
