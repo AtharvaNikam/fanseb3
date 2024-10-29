@@ -28,7 +28,7 @@ export default function MainLayout({ children }) {
             pt: { xs: 8, md: 10 },
           }),
           ...(isBrand && {
-            backgroundColor: 'rgb(220 65 255)',
+            backgroundColor: 'purple',
           }),
         }}
       >

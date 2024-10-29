@@ -9,7 +9,7 @@ const config = {
   port: 3306,
   user: process.env.DATABASE_USER || 'root',
   password: process.env.DATABASE_PASSWORD || '',
-  database: process.env.DATABASE_NAME || 'fanseb'
+  database: process.env.DATABASE_NAME || 'fanseb',
 };
 
 // Observe application's life cycle to disconnect the datasource when

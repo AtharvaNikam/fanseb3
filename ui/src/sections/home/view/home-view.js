@@ -31,7 +31,7 @@ export default function HomeView() {
         pb={{ xs: 5, md: 8 }}
         px={{ xs: `5%`, md: `12%` }}
         sx={{
-          backgroundColor: 'rgb(220 65 255)',
+          backgroundColor: '#b2b2b2',
         }}
       >
         <Box className="heroSection">
@@ -51,7 +51,7 @@ export default function HomeView() {
         <CardDesign />
 
         <section id="faqSection">
-          <FaqSection /> 
+          <FaqSection />
         </section>
       </Box>
     </>

@@ -162,9 +162,11 @@ export default function AccountGeneral({ user }) {
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
               <RHFTextField name="bio" multiline rows={4} label="Bio" />
 
-              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                
-              </LoadingButton>
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+              ></LoadingButton>
             </Stack>
           </Card>
         </Grid>
