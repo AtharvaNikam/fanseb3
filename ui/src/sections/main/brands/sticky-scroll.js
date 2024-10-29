@@ -58,10 +58,12 @@ export default function StickyScroll() {
                   </Typography>
                 </div>
                 <img
-                  src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min.png"
+                  // src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min.png"
+                  src = "/assets/images/brands/sticky-scroll/navigate_traffic.png"
                   loading="lazy"
                   sizes="(max-width: 479px) 100vw, (max-width: 767px) 76vw, 100vw"
-                  srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min.png 1764w"
+                  // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f96d885f90f596bfe0d3a_Phone_Illustration%2001-min.png 1764w"
+                  srcSet='/assets/images/brands/sticky-scroll/navigate_traffic.png'
                   alt=""
                   className="grid-scrolling-image img1 phone"
                 />
@@ -355,30 +357,36 @@ export default function StickyScroll() {
               className={`grid-scrolling-image img1 ${activeIndex === 0 ? 'block' : 'hidden'}`}
             />
             <img
-              src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png"
+              src = "/assets/images/brands/sticky-scroll/pay_for_performance.png"
+              // src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png"
               loading="lazy"
               data-w-id="9784404c-529e-28d5-7ea7-926a9dc084d8"
-              sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
+              sizes="(max-width: 767px) 100vw, (max-width: 991px) 42vw, 40vw"
               alt=""
-              srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png 1764w"
+              srcSet = '/assets/images/brands/sticky-scroll/pay_for_performance.png'
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png 1764w"
               className={`grid-scrolling-image img2 ${activeIndex === 1 ? 'block' : 'hidden'}`}
             />
             <img
-              src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min.png"
+              src = "/assets/images/brands/sticky-scroll/navigate_traffic.png"
+              // src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min.png"
               loading="lazy"
               data-w-id="09def63f-a30c-fd71-8d86-f9f5b1685295"
               sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
               alt=""
-              srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min.png 1764w"
+              srcSet = '/assets/images/brands/sticky-scroll/navigate_traffic.png'
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/631094066c8742042efa1fda_Illustration%2003-min.png 1764w"
               className={`grid-scrolling-image img3 ${activeIndex === 2 ? 'block' : 'hidden'}`}
             />
             <img
-              src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min.png"
+              src = "/assets/images/brands/sticky-scroll/accquire_new_patrons.png"
+              // src="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min.png"
               loading="lazy"
               data-w-id="73c255e3-3588-78b5-69ef-b99789066867"
               sizes="(max-width: 767px) 100vw, (max-width: 991px) 46vw, 42vw"
               alt=""
-              srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min.png 1767w"
+              srcSet = '/assets/images/brands/sticky-scroll/accquire_new_patrons.png'
+              // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/63217326ddd87d7729a8c8a1_Illustration%2004-min.png 1767w"
               className={`grid-scrolling-image img4 ${activeIndex === 3 ? 'block' : 'hidden'}`}
             />
             <img

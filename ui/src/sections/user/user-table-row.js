@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import Iconify from 'src/components/iconify';
 import Label from 'src/components/label';
+import { TextField } from '@mui/material';
 //
 
 // ----------------------------------------------------------------------
@@ -20,6 +21,7 @@ import Label from 'src/components/label';
 export default function UserTableRow({ row, selected, onUpdateUserPermission, onActivateUser }) {
   console.log('row',row);
   const { name, avatarUrl, permissions, isActive, email } = row;
+  const [commissionRate, setCommissionRate] = useState();
   const [confirmAdmin, setConfirmAdmin] = useState({
     value: false,
     onTrue: () => setConfirmAdmin({ ...confirmAdmin, value: true }),
@@ -150,6 +152,38 @@ export default function UserTableRow({ row, selected, onUpdateUserPermission, on
             </Button>
           }
         />
+      ) : (permissions.some(permission => permission.toLowerCase() === "influencer") ? (
+        <ConfirmDialog
+          open={confirmBlock.value}
+          onClose={confirmBlock.onFalse}
+          title="Unblock Customer"
+          content="Are you sure you want to unblock this customer?"
+          action={
+            <>
+            {/* Commission Rate TextField */}
+            <TextField
+              label="Commission Rate"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+              onChange={(e) => setCommissionRate(e.target.value)} // Assuming `setCommissionRate` is a function that updates the commission rate state
+            />
+            
+            {/* Unblock Button */}
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                onActivateUser(commissionRate);
+                confirmBlock.onFalse();
+              }}
+            >
+              Unblock
+            </Button>
+          </>
+          }
+        />
       ) : (
         <ConfirmDialog
           open={confirmBlock.value}
@@ -169,7 +203,7 @@ export default function UserTableRow({ row, selected, onUpdateUserPermission, on
             </Button>
           }
         />
-      )}
+      ))}
     </>
   );
 }

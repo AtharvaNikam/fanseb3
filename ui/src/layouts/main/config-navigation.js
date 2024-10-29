@@ -11,6 +11,10 @@ export const navConfig = [
     path: '/',
   },
   {
+    title: 'Products',
+    path: paths.productsList,
+  },
+  {
     title: 'Brands',
     path: paths.brands.root,
   },

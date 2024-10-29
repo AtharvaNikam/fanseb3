@@ -61,6 +61,8 @@ export default function InfluencerDetailsView({ currentInfluencer }) {
 
   const { products } = useGetInfluencerProductList(currentInfluencer.id);
 
+  console.log(currentInfluencer);
+
   const { reels } = useGetPublicReels(influencerId);
   console.log('🚀 ~ reels:', reels);
 
@@ -70,7 +72,7 @@ export default function InfluencerDetailsView({ currentInfluencer }) {
 
   const handleViewProductDetails = useCallback(
     (productId, brandId) => {
-      router.push(`/influencer/${brandId}/product/${productId}`);
+      router.push(`/influencer/${currentInfluencer.id}/brand/${brandId}/product/${productId}`);
     },
     [router]
   );
@@ -212,6 +214,7 @@ export default function InfluencerDetailsView({ currentInfluencer }) {
                   >
                     <ProductList
                       key={product.id}
+                      influencerId = {currentInfluencer.id}
                       product={product.products}
                       handleViewProductDetails={() => {
                         handleViewProductDetails(product.productsId, product.products.brandId);
@@ -259,6 +262,7 @@ export default function InfluencerDetailsView({ currentInfluencer }) {
                   >
                     <ProductList
                       key={product.id}
+                      influencerId = {currentInfluencer.id}
                       product={product.products}
                       handleViewProductDetails={() => {
                         handleViewProductDetails(product.productsId, product.products.brandId);

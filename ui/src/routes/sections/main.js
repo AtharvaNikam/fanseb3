@@ -33,6 +33,7 @@ const TermsAndConditions = lazy(() => import('src/sections/home/termsConditions'
 const Faq = lazy(() => import('src/sections/home/faq'));
 const Info = lazy(()=> import('src/sections/home/OurInfo'));
 const ReturnPolicy = lazy(() => import('src/sections/home/ReturnPolicy'));
+const ProductList = lazy(() => import('src/pages/main/products-list/list'));
 // ----------------------------------------------------------------------
 
 export const mainRoutes = [
@@ -70,7 +71,8 @@ export const mainRoutes = [
       },
       { path: '/influencer/:influencerId', element: <InfluencerDetailsPage /> },
       { path: '/influencer/:influencerId/details', element: <InfluencerDetailsPage /> },
-      { path: '/influencer/:influencerId/product/:productId', element: <ProductDetailsPage /> },
+      { path: '/influencer/:influencerId/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
+      { path: '/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
       { path: paths.about, element: <AboutPage /> },
       { path: paths.contact, element: <ContactPage /> },
       { path: paths.faqs, element: <FaqsPage /> },
@@ -80,7 +82,8 @@ export const mainRoutes = [
       { path: paths.termsConditions, element:<TermsAndConditions/>},
       { path: paths.faqSection, element:<Faq/>},
       { path: paths.ourInfo, element:<Info/>},
-      { path: paths.returnPolicy, element:<ReturnPolicy/>}
+      { path: paths.returnPolicy, element:<ReturnPolicy/>},
+      { path: paths.productsList, element:<ProductList/>}
     ],
   },
 

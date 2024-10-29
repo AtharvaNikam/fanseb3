@@ -57,6 +57,7 @@
     "@mui/x-date-pickers": "^6.8.0",
     "@react-pdf/renderer": "^3.1.12",
     "@reduxjs/toolkit": "^1.9.5",
+    "@sayings/react-reels": "^1.0.2",
     "apexcharts": "^3.41.0",
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.4.0",

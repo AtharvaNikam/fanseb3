@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 // @mui
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -10,7 +11,7 @@ import { _appInvoices } from 'src/_mock';
 import { useSettingsContext } from 'src/components/settings';
 // assets
 //
-import { useGetAdminSalesHistory } from 'src/api/orders';
+import { useGetAdminSalesHistory, useGetOrders } from 'src/api/orders';
 import AppAreaInstalled from '../app-area-installed';
 import AppNewInvoice from '../app-new-invoice';
 import AppWidgetSummary from '../app-widget-summary';
@@ -20,8 +21,17 @@ import AppWidgetSummary from '../app-widget-summary';
 export default function OverviewAppView() {
   const { user } = useMockedUser();
   const { salesData } = useGetAdminSalesHistory();
-  console.log(salesData);
+  const [recentOrders, setRecentOrders] = useState([]);
   const theme = useTheme();
+
+  const {orders, refreshOrder} = useGetOrders();
+
+  useEffect(() => {
+    if (orders) {
+      setRecentOrders(orders?.slice(0, 5)); // Get the last 5 orders
+    }
+  }, [orders]);
+
 
   const settings = useSettingsContext();
 
@@ -118,11 +128,11 @@ export default function OverviewAppView() {
         <Grid xs={12} lg={6}>
           <AppNewInvoice
             title="Recent Orders"
-            tableData={_appInvoices}
+            tableData={recentOrders}
             tableLabels={[
               { id: 'id', label: 'Tracking Number' },
-              { id: 'category', label: 'Total' },
-              { id: 'price', label: 'Order Date' },
+              { id: 'total', label: 'Total' },
+              { id: 'date', label: 'Order Date' },
               { id: 'status', label: 'Status' },
               { id: '' },
             ]}

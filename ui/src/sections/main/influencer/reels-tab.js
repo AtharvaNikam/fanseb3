@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { Reels } from '@sayings/react-reels';
+import '@sayings/react-reels/dist/index.css';
 // @mui
 import { Box, Grid, Stack } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useRouter } from 'src/routes/hook';
 import Videos from 'src/sections/common/reel-player/video-player';
@@ -19,59 +21,52 @@ export default function ReelsTab({ reel }) {
   const router = useRouter();
   const handleViewProductDetails = useCallback(
     (productId, brandId) => {
-      router.push(`/influencer/${brandId}/product/${productId}`);
+      router.push(`/influencer/${user.id}/brand/${brandId}/product/${productId}`);
     },
-    [router]
+    [router, user.id]
   );
   const mdUp = useResponsive('up', 'md');
 
   SwiperCore.use([Autoplay]);
 
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  // Custom video component for mobile
+  const VideoReel = () => (
+    <Box
+      component="video"
+      controls
+      autoPlay
+      muted
+      onPause={() => setIsPlaying(false)}
+      onPlay={() => setIsPlaying(true)}
+      sx={{
+        width: '100%',
+        height: 'auto',
+        backgroundColor: 'black',
+        position : 'relative'
+      }}
+    >
+      <source src={reel?.reelLink.fileUrl} type="video/mp4" />
+      Your browser does not support the video tag.
+    </Box>
+  );
+
   return (
     <>
       {!mdUp && (
-        // <Grid container item md={5} xs={12} justifyContent="center" alignItems="center">
-        //   <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
-        // </Grid>
-        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{position:'relative'}}>
-          <Box
-            sx={{
-              width: '100%',
-              height: 'auto',
-              backgroundColor: 'black',
-              position: 'relative',
-            }}
-          >
-            <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
-          </Box>
-          {/* <Grid container spacing={2} justifyContent="center">
-            {products?.map((product) => (
-              <Grid
-                key={product.id}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                sx={{ padding: 1, position:'absolute', bottom:60, width:'100%', mx:'auto' }}
-              >
-                <ProductList
-                  product={product}
-                  handleViewProductDetails={() => {
-                    handleViewProductDetails(product.id, product.brandId);
-                  }}
-                />
-              </Grid>
-            ))}
-          </Grid> */}
-          <Box sx={{ padding: 1, position: 'absolute', bottom: 60, width: '100%', mx: 'auto' }}>
+        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ position: 'relative' }}>
+          {/* Full-Screen Video Reel */}
+          <VideoReel />
+          {/* Product Carousel at Bottom */}
+          <Box sx={{ padding: 1, width: '95%', mx: 'auto', position:'absolute', bottom : '40px' }}>
             <Swiper spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 3000 }}>
               {products?.map((product) => (
                 <SwiperSlide key={product.id}>
                   <ProductList
                     product={product}
-                    handleViewProductDetails={() => {
-                      handleViewProductDetails(product.id, product.brandId);
-                    }}
+                    influencerId={user.id}
+                    handleViewProductDetails={() => handleViewProductDetails(product.id, product.brandId)}
                   />
                 </SwiperSlide>
               ))}
@@ -87,15 +82,7 @@ export default function ReelsTab({ reel }) {
           height={`${window.innerHeight - 100}px`}
           width={{ xs: '100%', md: '100%' }}
         >
-          <Grid
-            container
-            item
-            md={4}
-            xs={12}
-            justifyContent="center"
-            alignItems="flex-start"
-            pt={2}
-          >
+          <Grid container item md={4} xs={12} justifyContent="center" alignItems="flex-start" pt={2}>
             <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
           </Grid>
           <Grid
@@ -134,7 +121,7 @@ export default function ReelsTab({ reel }) {
           >
             {products?.map((product) => (
               <Grid
-                key={product.id}
+                key={product.id} // Unique key for Grid
                 container
                 item
                 sm={5.3}
@@ -149,15 +136,12 @@ export default function ReelsTab({ reel }) {
                   mx: 1,
                   width: '300px',
                   height: '400px',
-                  // direction: 'column',
-                  // textAlign: 'center',
                   alignContent: 'space-between',
-                  // justifyContent: 'space-around',
                 }}
               >
                 <ProductList
-                  key={product.id}
-                  product={product}
+                  influencerId={user.id}
+                  product={product} // No need for key prop here
                   handleViewProductDetails={() => {
                     handleViewProductDetails(product.id, product.brandId);
                   }}
@@ -170,6 +154,7 @@ export default function ReelsTab({ reel }) {
     </>
   );
 }
+
 ReelsTab.propTypes = {
   reel: PropTypes.object,
 };

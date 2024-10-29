@@ -20,6 +20,7 @@ import FormProvider from 'src/components/hook-form';
 import Iconify from 'src/components/iconify';
 import Label from 'src/components/label';
 import IncrementerButton from 'src/sections/common/incrementer-button';
+import { useParams } from 'react-router';
 //
 
 // ----------------------------------------------------------------------
@@ -36,7 +37,7 @@ export default function ProductDetailsSummary({
   const dispatch = useDispatch();
   const [displayProduct, setDisplayProduct] = useState(product);
 
-  const params = useRouter();
+  const params = useParams();
   const currentInfluencerId = params?.influencerId;
 
   const existProduct = cart.map((item) => item.id).includes(displayProduct.id);

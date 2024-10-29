@@ -262,15 +262,18 @@ export class UserReelsController {
   })
   async randomizedReels(
     @requestBody() reel: any,
-    // @param.path.number('reelId') reelId: number,
     @param.query.object('filter') filter?: Filter<Reels>,
   ): Promise<Reels[]> {
+    console.log(reel);
     let allReels: Reels[];
+    
     if (reel) {
-      if (!reel.reelId) {
+      if (!reel.id) {
         throw new Error('Reel Id is required');
       }
-      const reelData = await this.reelsRepository.findById(reel.reelId, {
+
+      // Fetch specific reel by ID
+      const reelData = await this.reelsRepository.findById(reel.id, {
         include: [
           {
             relation: 'user',
@@ -293,8 +296,9 @@ export class UserReelsController {
         ],
       });
 
+      // Fetch other reels excluding the one with the specified reel ID
       const remainingReels = await this.reelsRepository.find({
-        where: {id: {neq: reel.reelId}},
+        where: { id: { neq: reel.id } }, // Updated to use reel.id
         include: [
           {
             relation: 'user',
@@ -319,11 +323,14 @@ export class UserReelsController {
         order: ['createdAt DESC'],
       });
 
+      // Shuffle the remaining reels and add the specific reel at the start
       const randomRemainingReels = this.shuffleArray(remainingReels);
       randomRemainingReels.unshift(reelData);
 
       return randomRemainingReels;
+
     } else {
+      // Fetch all reels if no specific reel is provided
       allReels = await this.reelsRepository.find({
         ...filter,
         order: ['createdAt DESC'],
@@ -349,6 +356,7 @@ export class UserReelsController {
         ],
       });
 
+      // Shuffle all reels
       const randomizedReels = this.shuffleArray(allReels);
       return randomizedReels;
     }
@@ -362,4 +370,5 @@ export class UserReelsController {
     }
     return array;
   }
+
 }

@@ -1,5 +1,6 @@
 import { useScroll } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useResponsive } from 'src/hooks/use-responsive';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ReactTyped } from 'react-typed';
 // @mui
@@ -104,17 +105,10 @@ import HeroImgVideo from './hero-img-video';
 // ----------------------------------------------------------------------
 
 export default function HomeHero() {
-  // const mdUp = useResponsive('up', 'md');
-
-  // const theme = useTheme();
-
   const heroRef = useRef(null);
-
   const { scrollY } = useScroll();
-
   const [percent, setPercent] = useState(0);
-
-  // const isLight = theme.palette.mode === 'light';
+  const isMdUp = useResponsive('up', 'md'); // Check if the screen size is medium or larger
 
   const getScroll = useCallback(() => {
     let heroHeight = 0;
@@ -125,7 +119,6 @@ export default function HomeHero() {
 
     scrollY.on('change', (scrollHeight) => {
       const scrollPercent = (scrollHeight * 100) / heroHeight;
-
       setPercent(Math.floor(scrollPercent));
     });
   }, [scrollY]);
@@ -134,32 +127,23 @@ export default function HomeHero() {
     getScroll();
   }, [getScroll]);
 
-  // const transition = {
-  //   repeatType: 'loop',
-  //   ease: 'linear',
-  //   duration: 60 * 4,
-  //   repeat: Infinity,
-  // };
-
-  // const opacity = 1 - percent / 100;
-
-  // const hide = percent > 120;
+  // Set font sizes based on screen size
+  const titleFontSize = isMdUp ? '72px' : '54px'; // Medium and larger screens
+  const subtitleFontSize = isMdUp ? '68px' : '51px'; // Medium and larger screens
+  const descriptionFontSize = isMdUp ? '24px' : '21px'; // Medium and larger screens
 
   return (
-    <Grid container pt={{ xs: 8, md: 20 }}>
+    <Grid container pt={{ xs: 8, md: 20 }} ref={heroRef}>
       <Grid item md={7} pt={5}>
         <Typography
           variant="h2"
-          sx={{
-            textAlign: 'left',
-          }}
+          sx={{ textAlign: 'left' }}
           style={{
             fontFamily: 'Poppins',
-            fontSize: '72px',
+            fontSize: titleFontSize,
             fontWeight: '500',
-            lineHeight: '80px',
+            lineHeight: isMdUp ? '80px' : '60px',
             letterSpacing: '-4px',
-            textAlign: 'left',
             color: 'white',
           }}
         >
@@ -167,16 +151,13 @@ export default function HomeHero() {
         </Typography>
         <Typography
           variant="h2"
-          sx={{
-            textAlign: 'left',
-          }}
+          sx={{ textAlign: 'left' }}
           style={{
             fontFamily: 'Poppins',
-            fontSize: '68px',
+            fontSize: subtitleFontSize,
             fontWeight: '500',
-            lineHeight: '80px',
+            lineHeight: isMdUp ? '80px' : '60px',
             letterSpacing: '-4px',
-            textAlign: 'left',
             color: 'white',
             opacity: '0.6',
           }}
@@ -186,22 +167,18 @@ export default function HomeHero() {
             typeSpeed={80}
             loop
             backSpeed={70}
-            // cursorChar=""
             showCursor
           />
         </Typography>
         <Typography
           variant="h2"
-          sx={{
-            textAlign: 'left',
-          }}
+          sx={{ textAlign: 'left' }}
           style={{
             fontFamily: 'Poppins',
-            fontSize: '72px',
+            fontSize: titleFontSize,
             fontWeight: '500',
-            lineHeight: '80px',
+            lineHeight: isMdUp ? '80px' : '60px',
             letterSpacing: '-4px',
-            textAlign: 'left',
             color: 'white',
           }}
         >
@@ -209,22 +186,17 @@ export default function HomeHero() {
         </Typography>
         <Typography
           variant="h3"
-          sx={{
-            textAlign: 'left',
-
-            marginTop: '40px',
-          }}
+          sx={{ textAlign: 'left', marginTop: '40px' }}
           style={{
             fontFamily: 'Poppins',
-            fontSize: '24px',
+            fontSize: descriptionFontSize,
             fontWeight: '400',
-            lineHeight: '32px',
+            lineHeight: isMdUp ? '32px' : '25px',
             letterSpacing: '-0.5px',
-            textAlign: 'left',
             color: 'white',
           }}
         >
-          Streamline brand collaboration,Select your favorite brands, share links, and reap
+          Streamline brand collaboration, select your favorite brands, share links, and reap
           significant rewards when your audience shops on your fanseb.
         </Typography>
         <Button
@@ -241,13 +213,12 @@ export default function HomeHero() {
             mb: '5px',
             width: '145px',
             height: '56px',
-            padding: '18px 32px 18px 32px',
+            padding: '18px 32px',
             borderRadius: '6px',
+            display: 'block', // Ensures the button is treated as a block element
+            margin: isMdUp ? '40px 0 0 0' : '40px auto 0 auto', // Center on mobile
           }}
-          style={{
-            // marginLeft: '60px',
-            marginTop: '40px',
-          }}
+          style={{ marginTop: '40px' }}
         >
           <Box
             style={{
@@ -256,7 +227,6 @@ export default function HomeHero() {
               fontWeight: '600',
               lineHeight: '20px',
               letterSpacing: '0em',
-              textAlign: 'left',
               color: 'black',
             }}
           >
@@ -265,7 +235,7 @@ export default function HomeHero() {
         </Button>
       </Grid>
       <Grid item md={5} p={5} style={{ position: 'relative' }}>
-            <HeroImgVideo/>
+        <HeroImgVideo />
       </Grid>
     </Grid>
   );
