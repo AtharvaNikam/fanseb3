@@ -62,10 +62,10 @@ export class CategoryController {
     return this.categoryRepository.count(where);
   }
 
-  @authenticate({
-    strategy: 'jwt',
-    options: {required: [PermissionKeys.ADMIN,PermissionKeys.BRAND]},
-  })
+  // @authenticate({
+  //   strategy: 'jwt',
+  //   options: {required: [PermissionKeys.ADMIN,PermissionKeys.BRAND,]},
+  // })
   @get('/api/categories')
   async find(@param.filter(Category) filter?: Filter<Category>): Promise<any> {
     const rootCategories = await this.categoryRepository.find(filter);

@@ -119,7 +119,7 @@ export default function InfluencerView() {
       <ScrollProgress scrollYProgress={scrollYProgress} />
       <CartIcon />
 
-      <Box mb={10} mx={{ xs: `5%`, md: `12%` }}>
+      <Box mb={10} mx={{ md: `12%` }}>
         <Grid item md={12} sm={12} xs={12} padding={{ xs: '24px 0px', md: '35px 0px' }}>
           <Grid>
             <Grid item xs={12} md={12}>
@@ -177,7 +177,7 @@ export default function InfluencerView() {
                     />
                   </Grid>
                 )}
-                <Grid container item md={11} sx={{ height: '900px' }}>
+                <Grid container item md={11} xs={12} sx={{ height: '900px' }} padding = {{xs : '0px !important'}}>
                   <Swiper
                     className="mySwiper"
                     direction="vertical"

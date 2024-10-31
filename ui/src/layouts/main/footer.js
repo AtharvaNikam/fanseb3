@@ -3,6 +3,7 @@ import { Grid, Link } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link as ScrollLink } from 'react-scroll';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 // routes
 import { usePathname, useRouter } from 'src/routes/hook';
@@ -37,6 +38,7 @@ const LINKS = [
 // ----------------------------------------------------------------------
 
 export default function Footer() {
+  const isMdUp = useResponsive('up', 'md');
   const router = useRouter();
   const pathname = usePathname();
 
@@ -93,7 +95,6 @@ export default function Footer() {
             target="_blank"
             rel="noopener"
             underline="none"
-            sx={{ ml: 1 }}
           >
             <Typography
               variant="caption"
@@ -105,7 +106,7 @@ export default function Footer() {
             </Typography>
           </Link>
 
-          <Link href={paths.mail} target="_blank" rel="noopener" underline="none" sx={{ ml: 1 }}>
+          <Link href={paths.mail} target="_blank" rel="noopener" underline="none">
             <Typography
               variant="caption"
               style={{
@@ -138,7 +139,6 @@ export default function Footer() {
               target="_blank"
               rel="noopener"
               underline="none"
-              sx={{ ml: 1 }}
             >
               <Box
                 className="hero-banner-image"
@@ -154,7 +154,6 @@ export default function Footer() {
               target="_blank"
               rel="noopener"
               underline="none"
-              sx={{ ml: 1 }}
             >
               <Box
                 className="hero-banner-image"
@@ -170,7 +169,6 @@ export default function Footer() {
               target="_blank"
               rel="noopener"
               underline="none"
-              sx={{ ml: 1 }}
             >
               <Box
                 className="hero-banner-image"
@@ -186,7 +184,6 @@ export default function Footer() {
               target="_blank"
               rel="noopener"
               underline="none"
-              sx={{ ml: 1 }}
             >
               <Box
                 className="hero-banner-image"
@@ -244,6 +241,7 @@ export default function Footer() {
             display: 'flex',
             flexDirection: 'column',
             gap: '10px',
+            marginTop: !isMdUp && '64px' 
           }}
         >
           <Link
@@ -321,6 +319,7 @@ export default function Footer() {
             flexDirection: 'column',
             gap: '10px',
             flexWrap: 'wrap !important',
+            marginTop: !isMdUp && '64px' 
           }}
         >
           <Link
@@ -336,7 +335,7 @@ export default function Footer() {
               router.push(paths.ourInfo);
             }}
           >
-            <Typography variant="caption" sx={{cursor:'pointer'}}>Our information</Typography>
+            <Typography variant="caption" sx={{cursor:'pointer'}}>{isMdUp ? 'Our information' : 'Our info'}</Typography>
           </Link>
           <Link
             underline="none"
@@ -351,7 +350,7 @@ export default function Footer() {
               router.push(paths.privacyPolicy);
             }}
           >
-            <Typography variant="caption" sx={{cursor:'pointer'}}>Privacy policy update</Typography>
+            <Typography variant="caption" sx={{cursor:'pointer'}}>{isMdUp ? 'Privacy policy update' : 'Privacy Policy' }</Typography>
           </Link>
           <Link
             underline="none"
@@ -366,7 +365,7 @@ export default function Footer() {
               router.push(paths.termsConditions);
             }}
           >
-            <Typography variant="caption" sx={{cursor:'pointer'}}>Term’s and conditions</Typography>
+            <Typography variant="caption" sx={{cursor:'pointer'}}>{isMdUp ? 'Term’s and conditions' : 'T&C'}</Typography>
           </Link>
           <Link
             underline="none"

@@ -517,7 +517,10 @@ export class UserController {
         isInfluncer: true,
       },
     };
-    return this.userRepository.find(specificFilter);
+
+    const userData = await this.userRepository.find(specificFilter);
+    console.log(userData);
+    return userData;
   }
 
   @get('/api/influencers/{name}', {

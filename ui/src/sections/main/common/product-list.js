@@ -99,78 +99,96 @@ export default function ProductList({ product, influencerId, handleViewProductDe
   if (isMobile) {
     return (
       <Grid
-      container
-      spacing={2}
-      sx={{
-        width: '100%', // Adjusted to take full width
-        maxHeight:'200px',
-        marginLeft:'0%',
-        height: '200px', // Adjusted height to fit content
-        background: 'rgba(0, 0, 0, 0.5)',
-        borderRadius: '10px',
-        overflow: 'hidden',
-        color: '#fff',
-        zIndex: 999,
-        paddingLeft : '0px !important'
-      }}
-    >
-      <Grid item md={6} sx={{paddingLeft : '10px !important'}}>
-        <Box onClick={handleViewProductDetails}>
-        <img
-          alt="product_image"
-          src={displayProduct?.image?.fileUrl}
-          style={{
-            width: '100px',
-            height: '100px',
-            marginTop:'40px',
-            objectFit: 'cover',
-            borderRadius: '10px',
-          }}
-        />
-      </Box>
-      </Grid>
-      <Grid item md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Typography
-          style={{
-            fontFamily: 'Rubik',
-            fontSize: '14px',
-            fontWeight: '600',
-            textAlign: 'center',
-            margin: '5px 0',
-            whiteSpace: 'normal',
-            overflowWrap: 'break-word',
-          }}
-        >
-          {displayProduct?.name}
-        </Typography>
-        <Button
-          variant="contained"
-          size="small"
-          style={{
-            background: '#232321',
-            color: '#fff',
-            borderRadius: '8.517px',
-            fontSize: '12px',
-            marginTop: '10px',
-            display: 'block',
-            width: '100%',
-          }}
-          onClick={handleAddCart}
-        >
-          ADD TO CART - ₹
-          <span
+        container
+        spacing={2}
+        sx={{
+          width: '100%',
+          maxHeight: '200px',
+          marginLeft: '0%',
+          height: '200px',
+          background: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: '20px',
+          overflow: 'visible',
+          color: '#fff',
+          zIndex: 10000,
+          paddingLeft: '0px !important'
+        }}
+      >
+        <Grid item md={6} sx={{ paddingLeft: '10px !important' }}>
+          <Box onClick={handleViewProductDetails}>
+            <img
+              alt="product_image"
+              src={displayProduct?.image?.fileUrl}
+              style={{
+                width: '100px',
+                height: '100px',
+                marginTop: '40px',
+                objectFit: 'cover',
+                borderRadius: '10px',
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid item md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Typography
             style={{
-              color: '#D001FF',
-              fontSize: '12px',
-              marginLeft: '3px',
-              textTransform: 'uppercase',
+              fontFamily: 'Rubik',
+              fontSize: '14px',
+              fontWeight: '600',
+              textAlign: 'center',
+              margin: '5px 0',
+              whiteSpace: 'normal',
+              overflowWrap: 'break-word',
             }}
           >
-            {displayProduct?.sale_price}
-          </span>
-        </Button>
+            {displayProduct?.name}
+          </Typography>
+          {displayProduct?.cartQuantity > 0 ? (
+            <IncrementerButton
+              sx={{
+                width: '100%',
+                fontSize: '12px',
+                color: 'white',
+                background: '#232321',
+                borderRadius: '8.517px',
+                marginTop: '10px',
+              }}
+              quantity={displayProduct?.cartQuantity}
+              onDecrease={() => onDecreaseQuantity(displayProduct?.id)}
+              onIncrease={() => onIncreaseQuantity(displayProduct?.id)}
+              disabledDecrease={displayProduct?.cartQuantity <= 0}
+              disabledIncrease={displayProduct?.cartQuantity >= displayProduct?.quantity}
+            />
+          ) : (
+            <Button
+              variant="contained"
+              size="small"
+              style={{
+                background: '#232321',
+                color: '#fff',
+                borderRadius: '8.517px',
+                fontSize: '12px',
+                marginTop: '10px',
+                display: 'block',
+                width: '100%',
+              }}
+              onClick={handleAddCart}
+            >
+              ADD TO CART - ₹
+              <span
+                style={{
+                  color: '#D001FF',
+                  fontSize: '12px',
+                  marginLeft: '3px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {displayProduct?.sale_price}
+              </span>
+            </Button>
+          )}
+        </Grid>
       </Grid>
-    </Grid>
     );
   }
 

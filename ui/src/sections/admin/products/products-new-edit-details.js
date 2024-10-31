@@ -84,6 +84,7 @@ export default function ProductsNewEditDetails({ currentProduct }) {
     // // not required
     sellPrice: Yup.string(),
     description: Yup.string(),
+    categories : Yup.array(),
   });
 
   const defaultValues = {
@@ -104,7 +105,7 @@ export default function ProductsNewEditDetails({ currentProduct }) {
     length: currentProduct?.length,
     productType: currentProduct?.productType || '',
     digitalFile: currentProduct?.digitalFile || '',
-    // categories: currentProduct?.categories,
+    categories: currentProduct?.categories || [],
   };
 
   const methods = useForm({
@@ -143,6 +144,7 @@ export default function ProductsNewEditDetails({ currentProduct }) {
         image: { fileUrl: data.featuredImage },
         video: { fileUrl: data.video },
         gallery: data.galleryImage.map((item) => ({ fileUrl: item })),
+        categories : data.categories,
       };
 
       // Update user profile
@@ -444,52 +446,42 @@ export default function ProductsNewEditDetails({ currentProduct }) {
           <Stack spacing={3} sx={{ p: 3 }}>
             {catOptions && (
               <Controller
-                name="categories"
-                control={methods.control}
-                render={({ field }) => (
-                  <Autocomplete
-                    {...field}
-                    fullWidth
-                    multiple
-                    limitTags={3}
-                    label="Categories"
-                    clearOnEscape
-                    value={selectedParent.map((option) => option.name)}
-                    onChange={(event, newInputValue) => {
-                      const selectedOptions = catOptions.filter((option) =>
-                        newInputValue.includes(option.name)
-                      );
-                      if (selectedOptions) {
-                        setSelectedParent(selectedOptions);
-                      } else {
-                        setSelectedParent(newInputValue);
-                      }
-                    }}
-                    options={
-                      catOptions
-                        ? catOptions
-                            .filter((option) => option && option.name)
-                            .map((option) => option.name)
-                        : []
-                    }
-                    renderInput={(paramss) => (
-                      <TextField {...paramss} label="Categories" placeholder="Categories" />
-                    )}
-                    renderTags={(selected, getTagProps) =>
-                      selected.map((option, index) => (
-                        <Chip
-                          {...getTagProps({ index })}
-                          key={option}
-                          label={option}
-                          size="small"
-                          variant="soft"
-                          color="primary"
-                        />
-                      ))
-                    }
-                  />
-                )}
-              />
+              name="categories"
+              control={methods.control}
+              render={({ field }) => (
+                <Autocomplete
+                  {...field}
+                  fullWidth
+                  multiple
+                  limitTags={3}
+                  label="Categories"
+                  clearOnEscape
+                  value={selectedParent} // Bind selectedParent directly as the value
+                  onChange={(event, newInputValue) => {
+                    setSelectedParent(newInputValue); // Store the selected category objects directly
+                    field.onChange(newInputValue); // Update form state with selected categories
+                  }}
+                  options={catOptions || []} // Provide category options
+                  getOptionLabel={(option) => option.name} // Display the name of each category
+                  isOptionEqualToValue={(option, value) => option.id === value.id} // Compare by ID
+                  renderInput={(params) => (
+                    <TextField {...params} label="Categories" placeholder="Categories" />
+                  )}
+                  renderTags={(selected, getTagProps) =>
+                    selected.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        key={option.id} // Use unique ID
+                        label={option.name}
+                        size="small"
+                        variant="soft"
+                        color="primary"
+                      />
+                    ))
+                  }
+                />
+              )}
+            />
             )}
           </Stack>
         </Card>

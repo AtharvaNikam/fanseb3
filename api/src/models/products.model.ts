@@ -87,6 +87,13 @@ export class Products extends Entity {
   isTaxable: boolean;
 
   @property({
+    type : 'array',
+    itemType : 'object',
+    // required: true,
+  })
+  categories : Array<object>;
+
+  @property({
     type: 'boolean',
     required: true,
   })

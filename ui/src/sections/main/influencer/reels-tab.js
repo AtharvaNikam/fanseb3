@@ -42,9 +42,12 @@ export default function ReelsTab({ reel }) {
       onPlay={() => setIsPlaying(true)}
       sx={{
         width: '100%',
-        height: 'auto',
+        height: '85vh',
         backgroundColor: 'black',
-        position : 'relative'
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: '20px',  
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',  
       }}
     >
       <source src={reel?.reelLink.fileUrl} type="video/mp4" />
@@ -55,11 +58,11 @@ export default function ReelsTab({ reel }) {
   return (
     <>
       {!mdUp && (
-        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ position: 'relative' }}>
+        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ position: 'relative', width: '100%', maxWidth:'100%', borderRadius: '14px', padding : '0px' }}>
           {/* Full-Screen Video Reel */}
-          <VideoReel />
+            <VideoReel />
           {/* Product Carousel at Bottom */}
-          <Box sx={{ padding: 1, width: '95%', mx: 'auto', position:'absolute', bottom : '40px' }}>
+          <Box sx={{ py: 1, width: '95%', mx: 'auto', position:'absolute', bottom : '40px' }}>
             <Swiper spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 3000 }}>
               {products?.map((product) => (
                 <SwiperSlide key={product.id}>

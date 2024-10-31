@@ -45,6 +45,7 @@ export default function Features() {
               variant="h2"
               style={{
                 color: 'white',
+                textAlign : !mdUp && 'center',
               }}
             >
               Unlock Your Earnings Potential
@@ -56,6 +57,7 @@ export default function Features() {
                 lineHeight: '29px',
                 letterSpacing: '0em',
                 color: 'white',
+                textAlign : !mdUp && 'center',
               }}
             >
               With a swift setup that takes under 30 seconds, join a vibrant community of over 1,000
@@ -94,7 +96,7 @@ export default function Features() {
               <Typography
                 style={{
                   // fontFamily: 'Dosis',
-                  fontSize: '23px',
+                  fontSize: mdUp ? '23px' : '18px',
                   fontStyle: 'normal',
                   fontWeight: '700',
                   lineHeight: '120%',
@@ -106,7 +108,7 @@ export default function Features() {
                 style={{
                   fontFamily: 'Inter',
                   paddingTop: '8px',
-                  fontSize: '18px',
+                  fontSize: mdUp ? '18px' : '14px',
                   fontStyle: 'normal',
                   fontWeight: '400',
                   lineHeight: '160%',
@@ -148,7 +150,7 @@ export default function Features() {
               <Typography
                 style={{
                   // fontFamily: 'Dosis',
-                  fontSize: '23px',
+                  fontSize: mdUp ? '23px' : '18px',
                   fontStyle: 'normal',
                   fontWeight: '700',
                   lineHeight: '120%',
@@ -161,7 +163,7 @@ export default function Features() {
                   /* Body */
                   fontFamily: 'Inter',
                   paddingTop: '8px',
-                  fontSize: '18px',
+                  fontSize: mdUp ? '18px' : '14px',
                   fontStyle: 'normal',
                   fontWeight: '400',
                   lineHeight: '160%',
@@ -203,7 +205,7 @@ export default function Features() {
               <Typography
                 style={{
                   // fontFamily: 'Dosis',
-                  fontSize: '23px',
+                  fontSize: mdUp ? '23px' : '18px',
                   fontStyle: 'normal',
                   fontWeight: '700',
                   lineHeight: '120%',
@@ -216,7 +218,7 @@ export default function Features() {
                   /* Body */
                   fontFamily: 'Inter',
                   paddingTop: '8px',
-                  fontSize: '18px',
+                  fontSize: mdUp ? '18px' : '14px',
                   fontStyle: 'normal',
                   fontWeight: '400',
                   lineHeight: '160%',

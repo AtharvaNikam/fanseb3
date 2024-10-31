@@ -23,6 +23,7 @@ import CartIcon from 'src/sections/common/cart-icon';
 import BrandsSlider from '../brand-slider';
 import StickyScroll from '../sticky-scroll';
 import './brand-slider.css';
+import { useResponsive } from 'src/hooks/use-responsive';
 //
 
 // ----------------------------------------------------------------------
@@ -30,6 +31,7 @@ import './brand-slider.css';
 // ----------------------------------------------------------------------
 
 export default function BrandsView() {
+  const isMdUp = useResponsive('up', 'md'); // Check if the screen size is medium or larger
   const { scrollYProgress } = useScroll();
   // const settings = useSettingsContext();
   // const { checkout } = useCheckout();
@@ -76,111 +78,113 @@ export default function BrandsView() {
       <CartIcon />
 
       <Grid container pt={{ xs: 8, md: 10 }}>
-        <Grid
-          item
-          md={7}
-          pt={5}
-          display="flex"
-          direction="column"
-          justifyContent="center"
-          alignItems="flex-start"
+      <Grid
+        item
+        md={7}
+        pt={5}
+        display="flex"
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <Typography
+          variant="h2"  // Use h2 to match the first grid item
+          sx={{
+            textAlign: 'left',
+          }}
+          style={{
+            fontFamily: 'Poppins',
+            fontSize: isMdUp ? '72px' : '54px', // Adjust font size based on screen size
+            fontWeight: '500',
+            lineHeight: isMdUp ? '80px' : '60px', // Adjust line height based on screen size
+            letterSpacing: '-4px',
+            textAlign: 'left',
+            color: 'white',
+            opacity: '0.6', // Maintain opacity as in your original design
+          }}
         >
-          <Typography
-            variant="h1"
-            sx={{
-              textAlign: 'left',
-            }}
+          <ReactTyped
+            strings={['Sell', 'Build', 'Attract']}
+            typeSpeed={80}
+            loop
+            backSpeed={70}
+            showCursor
+          />
+        </Typography>
+        <Typography
+          variant="h2" // Use h2 to match the first grid item
+          sx={{
+            textAlign: 'left',
+          }}
+          style={{
+            fontFamily: 'Poppins',
+            fontSize: isMdUp ? '72px' : '54px', // Match the size
+            fontWeight: '500',
+            lineHeight: isMdUp ? '80px' : '60px', // Match the line height
+            letterSpacing: '-4px',
+            textAlign: 'left',
+            color: 'white',
+          }}
+        >
+          Elevate your brand with Fanseb Influencer-Driven Marketing platform
+        </Typography>
+        <Typography
+          variant="h3" // Keep h3 for this subtitle to match the first component
+          sx={{
+            textAlign: 'left',
+            marginTop: '40px',
+          }}
+          style={{
+            fontFamily: 'Poppins',
+            fontSize: isMdUp ? '24px' : '21px', // Adjust based on screen size
+            fontWeight: '400',
+            lineHeight: isMdUp ? '32px' : '25px', // Adjust based on screen size
+            letterSpacing: '-0.5px',
+            textAlign: 'left',
+            color: 'white',
+          }}
+        >
+          Empower your brand with our sales and customer acquisition engine, fueled by creators
+          who genuinely resonate with the unique heartbeat of India
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{
+            fontFamily: 'Poppins',
+            fontSize: '16px',
+            fontWeight: '500',
+            lineHeight: '20px',
+            letterSpacing: '-0.5px',
+            textAlign: 'center',
+            backgroundColor: '#f1f1f1',
+            color: '#000',
+            mt: '5px',
+            mb: '5px',
+            width: '145px',
+            height: '56px',
+            padding: '18px 32px',
+            borderRadius: '6px',
+          }}
+          style={{
+            marginTop: '40px',
+            margin:!isMdUp && 'auto'
+          }}
+        >
+          <Box
             style={{
               fontFamily: 'Poppins',
-              // fontSize: '72px',
-              fontWeight: '500',
-              lineHeight: '80px',
-              letterSpacing: '-4px',
-              textAlign: 'left',
-              color: 'white',
-              opacity: '0.6',
-            }}
-          >
-            <ReactTyped
-              strings={['Sell', 'Build', 'Attract']}
-              typeSpeed={80}
-              loop
-              backSpeed={70}
-              showCursor
-            />
-          </Typography>
-          <Typography
-            variant="h1"
-            sx={{
-              textAlign: 'left',
-            }}
-            style={{
-              fontFamily: 'Poppins',
-              fontWeight: '500',
-              textAlign: 'left',
-              color: 'white',
-            }}
-          >
-            Elevate your brand with Fanseb Influencer-Driven Marketing platform
-          </Typography>
-          <Typography
-            variant="h3"
-            sx={{
-              textAlign: 'left',
-
-              marginTop: '40px',
-            }}
-            style={{
-              fontFamily: 'Poppins',
-              fontSize: '24px',
-              fontWeight: '400',
-              lineHeight: '32px',
-              letterSpacing: '-0.5px',
-              textAlign: 'left',
-              color: 'white',
-            }}
-          >
-            Empower your brand with our sales and customer acquisition engine, fueled by creators
-            who genuinely resonate with the unique heartbeat of India
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              fontFamily: 'Poppins',
-              fontSize: '16px',
-              fontWeight: '500',
+              fontSize: '14px',
+              fontWeight: '600',
               lineHeight: '20px',
-              letterSpacing: '-0.5px',
-              textAlign: 'center',
-              // textDecorationColor: '#0000',
-              backgroundColor: '#f1f1f1',
-              color: '#000',
-              mt: '5px',
-              mb: '5px',
-              width: '145px',
-              height: '56px',
-              padding: '18px 32px 18px 32px',
-              borderRadius: '6px',
-            }}
-            style={{
-              // marginLeft: '60px',
-              marginTop: '40px',
+              letterSpacing: '0em',
+              textAlign: 'left',
             }}
           >
-            <Box
-              style={{
-                fontFamily: 'Poppins',
-                fontSize: '14px',
-                fontWeight: '600',
-                lineHeight: '20px',
-                letterSpacing: '0em',
-                textAlign: 'left',
-              }}
-            >
-              Get Started
-            </Box>
-          </Button>
-        </Grid>
+            Get Started
+          </Box>
+        </Button>
+      </Grid>
+
         <Grid item md={5} p={5}>
           <Box
             className="hero-banner-image"
@@ -542,6 +546,7 @@ export default function BrandsView() {
 }
 
 function FlagsCard({ title, numberImage, gesture }) {
+  const isMdUp = useResponsive('up', 'md');
   return (
     <Grid item md={4} sx={12}>
       <Box
@@ -599,10 +604,11 @@ function FlagsCard({ title, numberImage, gesture }) {
           alt="image not failed"
           sx={{
             position: 'relative',
-            bottom: '30%',
-            left: '70%',
-            height: '200px',
-            width: '200px',
+            bottom: '20%',
+            left: isMdUp ? '83%' : '80%',
+            height: '100px',
+            width: '100px',
+            filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3))',
           }}
         />
       </Box>

@@ -252,7 +252,7 @@ export class UserProductsController {
 
   @authenticate({
     strategy: 'jwt',
-    options: {required: [PermissionKeys.INFLUENCER]},
+    options: {required: [PermissionKeys.ADMIN]},
   })
   @patch('/products/{id}')
   async patchProduct(
@@ -260,19 +260,9 @@ export class UserProductsController {
     @requestBody()
     products: any,
   ): Promise<any> {
-    // await this.productsRepository.updateById(id, products);
-    // return Promise.resolve({
-    //   success: true,
-    //   message: 'Product updated successfully',
-    // });
     try {
-      console.log('products',products.user.status);
       const productData = await this.productsRepository.findById(id);
-      const updatedData = {
-        ...productData,
-        status : products.user.status
-      }
-      await this.productsRepository.updateById(id, updatedData);
+      await this.productsRepository.updateById(id, products);
       return {
         success: true,
         message: 'Product updated successfully',
@@ -369,4 +359,126 @@ export class UserProductsController {
       message: 'Influencer Product Deleted Successfully',
     });
   }
+  
+    @post('/filtered-products')
+    async FetchFilteredProducts(
+      @requestBody({
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                categoryId: {
+                  type: 'number',
+                  description: 'fetching products based on categories',
+                },
+                priceRange: {
+                  type: 'object',
+                  properties: {
+                    minPrice: {
+                      type: 'number',
+                    },
+                    maxPrice: {
+                      type: 'number',
+                    },
+                  },
+                },
+                sortBy: {
+                  type: 'string',
+                },
+                discount: {
+                  type: 'number',
+                },
+                page: {
+                  type: 'number',
+                  description: 'Page number for pagination',
+                  default: 1,
+                },
+                limit: {
+                  type: 'number',
+                  description: 'Limit of items per page',
+                  default: 10,
+                },
+              },
+            },
+          },
+        },
+      })
+      requestBody: {
+        categoryId?: number;
+        priceRange?: {
+          min: number;
+          max: number;
+        };
+        sortBy?: string;
+        discount?: number;
+        page?: number;
+        limit?: number;
+      },
+    ): Promise<any> {
+      try {
+        const { categoryId, priceRange, sortBy, discount, page = 1, limit = 10 } = requestBody;
+  
+        // Fetch products based on base query
+        const allProducts = await this.productsRepository.find({
+          where: { status: true },
+        });
+  
+        if (!allProducts || allProducts.length === 0) {
+          throw new HttpErrors.NotFound('No products found');
+        }
+  
+        // Filter products based on categoryId, price range, etc.
+        let filteredProducts = allProducts;
+  
+        if (categoryId) {
+          filteredProducts = filteredProducts.filter((product) =>
+            product.categories.some((cat: any) => cat?.id === categoryId),
+          );
+        }
+  
+        if (priceRange) {
+          filteredProducts = filteredProducts.filter(
+            (product) =>
+              Number(product.sale_price) >= priceRange.min &&
+              Number(product.sale_price) <= priceRange.max,
+          );
+        }
+  
+        // Add sorting logic if needed
+        if (sortBy) {
+          filteredProducts.sort((a, b) => {
+            const priceA = Number(a.sale_price);
+            const priceB = Number(b.sale_price);
+    
+            if (sortBy === 'priceAsc') {
+              return priceA - priceB; // Ascending order
+            } else if (sortBy === 'priceDesc') {
+              return priceB - priceA; // Descending order
+            }
+            return 0; // No sorting if sortBy is not recognized
+          });
+        }
+  
+        if (discount) {
+          // Discount filtering logic here
+        }
+  
+        // Calculate pagination on the filtered products
+        const totalItems = filteredProducts.length;
+        const totalPages = Math.ceil(totalItems / limit);
+        const paginatedProducts = filteredProducts.slice((page - 1) * limit, page * limit);
+  
+        return {
+          success: true,
+          message: 'Product list',
+          data: paginatedProducts,
+          page,
+          totalPages,
+          totalItems,
+        };
+      } catch (error) {
+        throw error;
+      }
+    }
 }
