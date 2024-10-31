@@ -39,12 +39,13 @@ export default function InfluencerView() {
 
   const fetchAllReelsWithoutId = useCallback(async () => {
     try {
-        if(reelId){
+      if (reelId) {
         const reqData = {
-          id : Number(reelId)
-        }
+          id: Number(reelId),
+        };
         const response = await axiosInstance.post(
-          `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`, reqData
+          `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`,
+          reqData
         );
 
         if (response.status !== 200) {
@@ -53,7 +54,7 @@ export default function InfluencerView() {
 
         const { data } = response;
         setReels((prevReels) => [...prevReels, ...data]);
-      }else{
+      } else {
         const response = await axiosInstance.post(
           `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`
         );
@@ -64,11 +65,10 @@ export default function InfluencerView() {
 
         const { data } = response;
         setReels((prevReels) => [...prevReels, ...data]);
-      } 
-    }catch (error) {
-        console.error('🚀 Error fetching reels:', error.message);
       }
-    
+    } catch (error) {
+      console.error('🚀 Error fetching reels:', error.message);
+    }
   }, [skip, reelId]);
 
   // const fetchReelById = useCallback(async (reelId) => {
@@ -158,7 +158,7 @@ export default function InfluencerView() {
                         backgroundColor: 'primary',
                         color: 'primary',
                         borderRadius: '50%',
-                        boxShadow: '0px 2px 8px 4px rgba(0,0,0,0.5)',
+                        boxShadow: '0px 2px 10px 0px rgba(0,0,0,0.5)',
                       }}
                     />
                     <Box sx={{ flexGrow: 1 }} />
@@ -172,7 +172,7 @@ export default function InfluencerView() {
                         backgroundColor: 'primary',
                         color: 'primary',
                         borderRadius: '50%',
-                        boxShadow: '0px 2px 8px 4px rgba(0,0,0,0.5)',
+                        boxShadow: '0px 2px 10px 0px rgba(0,0,0,0.5)',
                       }}
                     />
                   </Grid>

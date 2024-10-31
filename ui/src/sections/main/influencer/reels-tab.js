@@ -45,9 +45,12 @@ export default function ReelsTab({ reel }) {
         height: '85vh',
         backgroundColor: 'black',
         position: 'relative',
+<<<<<<< Updated upstream
         overflow: 'hidden',
         borderRadius: '20px',  
         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',  
+=======
+>>>>>>> Stashed changes
       }}
     >
       <source src={reel?.reelLink.fileUrl} type="video/mp4" />
@@ -58,18 +61,40 @@ export default function ReelsTab({ reel }) {
   return (
     <>
       {!mdUp && (
+<<<<<<< Updated upstream
         <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ position: 'relative', width: '100%', maxWidth:'100%', borderRadius: '14px', padding : '0px' }}>
+=======
+        <Stack
+          spacing={2}
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ position: 'relative' }}
+        >
+>>>>>>> Stashed changes
           {/* Full-Screen Video Reel */}
             <VideoReel />
           {/* Product Carousel at Bottom */}
+<<<<<<< Updated upstream
           <Box sx={{ py: 1, width: '95%', mx: 'auto', position:'absolute', bottom : '40px' }}>
             <Swiper spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 3000 }}>
+=======
+          <Box sx={{ padding: 1, width: '95%', mx: 'auto', position: 'absolute', bottom: '40px' }}>
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 3000 }}
+            >
+>>>>>>> Stashed changes
               {products?.map((product) => (
                 <SwiperSlide key={product.id}>
                   <ProductList
                     product={product}
                     influencerId={user.id}
-                    handleViewProductDetails={() => handleViewProductDetails(product.id, product.brandId)}
+                    handleViewProductDetails={() =>
+                      handleViewProductDetails(product.id, product.brandId)
+                    }
                   />
                 </SwiperSlide>
               ))}
@@ -85,7 +110,15 @@ export default function ReelsTab({ reel }) {
           height={`${window.innerHeight - 100}px`}
           width={{ xs: '100%', md: '100%' }}
         >
-          <Grid container item md={4} xs={12} justifyContent="center" alignItems="flex-start" pt={2}>
+          <Grid
+            container
+            item
+            md={4}
+            xs={12}
+            justifyContent="center"
+            alignItems="flex-start"
+            pt={2}
+          >
             <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
           </Grid>
           <Grid

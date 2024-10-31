@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import ProductCard from "./product-card";
-import { useResponsive } from "src/hooks/use-responsive";
-import axiosInstance from "src/utils/axios";
-import { Grid, Pagination, Box, CircularProgress } from "@mui/material";
-import { useRouter } from "src/routes/hook";
+import { useCallback, useEffect, useState } from 'react';
+import ProductCard from './product-card';
+import { useResponsive } from 'src/hooks/use-responsive';
+import axiosInstance from 'src/utils/axios';
+import { Grid, Pagination, Box, CircularProgress } from '@mui/material';
+import { useRouter } from 'src/routes/hook';
 
 export default function ProductList({productData, totalPagesCount, fetchProductsData}) {
   const isMdUp = useResponsive('up', 'md');
@@ -21,6 +21,7 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
     [router]
   );
 
+<<<<<<< Updated upstream
   // const fetchProducts = async (page = 1) => {
   //   setLoading(true);
   //   try {
@@ -37,6 +38,24 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
   //   }
   //   setLoading(false);
   // };
+=======
+  const fetchProducts = async (page = 1) => {
+    setLoading(true);
+    try {
+      const response = await axiosInstance.get(`/products?page=${page}&limit=${itemsPerPage}`);
+      if (response.data) {
+        setData((prevData) => (page === 1 ? response.data : [...prevData, ...response.data]));
+        setTotalPages(response.data.totalPages || 1);
+        console.log('Fetched products:', response.data); // Debug log
+      } else {
+        console.log('No items found in response:', response.data); // Debug log
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+    setLoading(false);
+  };
+>>>>>>> Stashed changes
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -59,14 +78,19 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
       ) : (
         <>
           <Grid container spacing={2}>
-            {data?.map((item) => (
-              <Grid key={item.id} item xs={6} md={3} lg={3}>
-                <ProductCard
-                  product={item}
-                  handleViewProductDetails={() => handleViewProductDetails(item.id, item.brandId)}
-                />
-              </Grid>
-            ))}
+            {data?.map(
+              (item) =>
+                item.status && (
+                  <Grid key={item.id} item xs={6} md={3} lg={3}>
+                    <ProductCard
+                      product={item}
+                      handleViewProductDetails={() =>
+                        handleViewProductDetails(item.id, item.brandId)
+                      }
+                    />
+                  </Grid>
+                )
+            )}
           </Grid>
 
           {isMdUp && (

@@ -24,14 +24,13 @@ export default function OverviewAppView() {
   const [recentOrders, setRecentOrders] = useState([]);
   const theme = useTheme();
 
-  const {orders, refreshOrder} = useGetOrders();
+  const { orders, refreshOrder } = useGetOrders();
 
   useEffect(() => {
     if (orders) {
       setRecentOrders(orders?.slice(0, 5)); // Get the last 5 orders
     }
   }, [orders]);
-
 
   const settings = useSettingsContext();
 
@@ -117,12 +116,13 @@ export default function OverviewAppView() {
         </Grid> */}
 
         <Grid xs={12} md={12} lg={12}>
-          {salesData.chart ? (<AppAreaInstalled
-            title="Sale History"
-            // subheader="(+43%) than last year"
-            chart={salesData.chart}
-          />):null}
-          
+          {salesData.chart ? (
+            <AppAreaInstalled
+              title="Sale History"
+              // subheader="(+43%) than last year"
+              chart={salesData.chart}
+            />
+          ) : null}
         </Grid>
 
         <Grid xs={12} lg={6}>

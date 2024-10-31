@@ -53,7 +53,6 @@ export default function CategoriesNewEditDetails({ currentCategory }) {
   const methods = useForm({
     resolver: yupResolver(UpdateUserSchema),
     defaultValues,
-  
   });
 
   const {
@@ -64,6 +63,7 @@ export default function CategoriesNewEditDetails({ currentCategory }) {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log(data);
     try {
       let response;
 

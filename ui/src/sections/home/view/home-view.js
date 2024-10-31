@@ -31,7 +31,7 @@ export default function HomeView() {
         pb={{ xs: 5, md: 8 }}
         px={{ xs: `5%`, md: `12%` }}
         sx={{
-          backgroundColor: '#b2b2b2',
+          backgroundColor: 'rgb(220 65 255)',
         }}
       >
         <Box className="heroSection">

@@ -604,11 +604,19 @@ function FlagsCard({ title, numberImage, gesture }) {
           alt="image not failed"
           sx={{
             position: 'relative',
+<<<<<<< Updated upstream
             bottom: '20%',
             left: isMdUp ? '83%' : '80%',
             height: '100px',
             width: '100px',
             filter: 'drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.3))',
+=======
+            bottom: '30%',
+            left: '70%',
+            height: '200px',
+            width: '200px',
+            filter: 'drop-shadow(0px 10px 10px rgba(53, 0, 53, .5))',
+>>>>>>> Stashed changes
           }}
         />
       </Box>

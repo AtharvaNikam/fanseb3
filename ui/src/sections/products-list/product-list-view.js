@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useEffect, useState } from "react";
 import { Box, Grid, IconButton, Dialog, DialogActions, Button } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList"; // Import the filter icon
@@ -128,4 +129,29 @@ export default function ProductListView() {
             </Dialog>
         </>
     );
+=======
+import { Box } from '@mui/material';
+import ProductList from './product-list';
+import { useResponsive } from 'src/hooks/use-responsive';
+import CartIcon from '../common/cart-icon';
+
+export default function ProductListView() {
+  const isMdUp = useResponsive('up', 'md');
+  return (
+    <>
+      <Box
+        component={'div'}
+        sx={{
+          width: '100%',
+          maxWidth: !isMdUp ? '100%' : '1000px',
+          margin: 'auto',
+          padding: !isMdUp ? '2%' : '40px',
+        }}
+      >
+        <CartIcon />
+        <ProductList />
+      </Box>
+    </>
+  );
+>>>>>>> Stashed changes
 }

@@ -45,14 +45,14 @@ export default function OrderDetailsInfo({ customer, delivery, payment, shipping
             </Box>
           </Box> */}
 
-          <Button
+          {/* <Button
             size="small"
             color="error"
             startIcon={<Iconify icon="mingcute:add-line" />}
             sx={{ mt: 1 }}
           >
             Add to Blacklist
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
     </>
