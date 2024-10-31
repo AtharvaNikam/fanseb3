@@ -12,24 +12,24 @@ import { useRouter } from 'src/routes/hook';
 // ----------------------------------------------------------------------
 
 export default function CarouselCenterMode({ data }) {
-  console.log('infuencer data',data);
+  console.log('Influencer data', data);
   const router = useRouter();
   const carousel = useCarousel({
     slidesToShow: 3,
     centerMode: true,
-    centerPadding: '60px',
+    centerPadding: '0px', // Adjust padding for proper alignment
     responsive: [
       {
         breakpoint: 2860,
-        settings: { slidesToShow: 2 },
+        settings: { slidesToShow: 2, centerPadding: '30px' }, // Adjust padding for responsive design
       },
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 2 },
+        settings: { slidesToShow: 2, centerPadding: '20px' },
       },
       {
         breakpoint: 600,
-        settings: { slidesToShow: 2 },
+        settings: { slidesToShow: 1, centerPadding: '10px' },
       },
       {
         breakpoint: 480,
@@ -42,7 +42,9 @@ export default function CarouselCenterMode({ data }) {
     <Box
       sx={{
         overflow: 'hidden',
+        width: '100%',  // Ensure full width for alignment
         position: 'relative',
+        padding: '0 20px',  // Add horizontal padding to prevent contraction
       }}
     >
       <CarouselArrows
@@ -55,7 +57,9 @@ export default function CarouselCenterMode({ data }) {
           {data.map((item) => (
             <Box
               key={item.id}
-              sx={{ px: 1 }}
+              sx={{
+                px: 1, // Space each carousel item for breathing room
+              }}
               // onClick={() => router.push(paths.influencer.details(item.id))}
             >
               <CarouselItem item={item} />
@@ -84,6 +88,12 @@ function CarouselItem({ item }) {
         borderRadius: 2,
         overflow: 'hidden',
         position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: 3, // Optional shadow to improve visual appearance
       }}
     >
       <Image
@@ -91,46 +101,12 @@ function CarouselItem({ item }) {
         src={userProfile?.avatar?.fileUrl}
         sx={{
           width: '100%',
+          // height: '100%', 
           height: 550,
-          // objectFit: 'cover',
+          objectFit: 'cover',
           borderRadius: 2,
         }}
       />
-
-      {/* <CardContent
-        sx={{
-          bottom: 0,
-          zIndex: 9,
-          width: '100%',
-          textAlign: 'left',
-          position: 'absolute',
-          color: 'common.white',
-          ...bgGradient({
-            direction: 'to top',
-            startColor: `${theme.palette.grey[900]} 25%`,
-            endColor: `${alpha(theme.palette.grey[900], 0)} 100%`,
-          }),
-        }}
-      >
-        <TextMaxLine variant="h4" paragraph>
-          {title}
-        </TextMaxLine>
-
-        <Link
-          color="inherit"
-          variant="overline"
-          sx={{
-            opacity: 0.72,
-            alignItems: 'center',
-            display: 'inline-flex',
-            transition: theme.transitions.create(['opacity']),
-            '&:hover': { opacity: 1 },
-          }}
-        >
-          learn More
-          <Iconify icon="eva:arrow-forward-fill" width={16} sx={{ ml: 1 }} />
-        </Link>
-      </CardContent> */}
     </Paper>
   );
 }

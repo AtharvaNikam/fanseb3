@@ -10,7 +10,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 const IncrementerButton = forwardRef(
-  ({ quantity, onIncrease, onDecrease, disabledIncrease, disabledDecrease, sx, ...other }, ref) => (
+  ({ quantity, onIncrease, onDecrease, disabledIncrease, disabledDecrease, isProductListing, sx, ...other }, ref) => (
     <Stack
       ref={ref}
       flexShrink={0}
@@ -31,7 +31,7 @@ const IncrementerButton = forwardRef(
         size="small"
         onClick={onDecrease}
         disabled={disabledDecrease}
-        sx={{ borderRadius: 0.75 }}
+        sx={{ borderRadius: 0.75, color : isProductListing ? '#D001FF' : '' }}
       >
         <Iconify icon="eva:minus-fill" width={16} />
       </IconButton>
@@ -42,7 +42,7 @@ const IncrementerButton = forwardRef(
         size="small"
         onClick={onIncrease}
         disabled={disabledIncrease}
-        sx={{ borderRadius: 0.75 }}
+        sx={{ borderRadius: 0.75, color : isProductListing ? '#D001FF' : '' }}
       >
         <Iconify icon="mingcute:add-line" width={16} />
       </IconButton>
@@ -56,6 +56,7 @@ IncrementerButton.propTypes = {
   onDecrease: PropTypes.func,
   onIncrease: PropTypes.func,
   quantity: PropTypes.number,
+  isProductListing : PropTypes.bool,
   sx: PropTypes.object,
 };
 

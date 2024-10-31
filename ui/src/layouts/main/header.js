@@ -156,7 +156,7 @@ export default function Header() {
                     style={{
                       marginRight: 20,
                       // backgroundImage: 'linear-gradient(90deg, #0171ed 0%, #d001ff 100%)',
-                      background: '#00e9e7 ',
+                      backgroundColor : '#7635dc',
                     }}
                   >
                     <Typography

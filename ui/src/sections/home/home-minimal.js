@@ -9,6 +9,7 @@ import 'rc-slider/assets/index.css';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import './slider.css';
+import { useResponsive } from 'src/hooks/use-responsive';
 // ----------------------------------------------------------------------
 
 const CARDS = [
@@ -33,6 +34,7 @@ const CARDS = [
 // ----------------------------------------------------------------------
 
 export default function HomeMinimal() {
+  const isMdUp = useResponsive('up', 'md');
   const [counter, setCounter] = useState(5000);
   const [upperValue, setUpperValue] = useState(500000);
   const [lowerValue, setLowerValue] = useState(30);
@@ -85,7 +87,7 @@ export default function HomeMinimal() {
             textAlign: 'center',
             // fontFamily: 'Dosis',
             color: 'white',
-            fontSize: '48px',
+            fontSize: isMdUp ? '48px' : '24px',
             fontStyle: 'normal',
             fontWeight: '600',
             lineHeight: '100%' /* 48px */,
@@ -99,8 +101,8 @@ export default function HomeMinimal() {
           style={{
             textAlign: 'center',
             color: 'white',
-
-            fontSize: '20px',
+            marginTop : !isMdUp && '20px',
+            fontSize: isMdUp ? '20px' : '18px', 
             fontStyle: 'normal',
             fontWeight: '400',
             lineHeight: ' 100%' /* 20px */,
@@ -113,17 +115,19 @@ export default function HomeMinimal() {
         <Box>
           <div className="sliderArea">
             <div className="slider-1">
-              <p>
-                <span
-                  style={{
-                    fontWeight: 700,
-                    fontSize: '21px',
-                  }}
-                >
-                  Pick your followers count.
-                </span>{' '}
-                ( Instagram ,facebook,twitter,youtube)
-              </p>
+            <p
+              style={{
+                fontWeight: 700,
+                fontSize: isMdUp ? '21px' : '16px', // Unified font size control
+                lineHeight: 1.5, 
+                textAlign: 'center'                   // Adjusted for better readability
+              }}
+            >
+              Pick your followers count.
+              <span style={{ fontWeight: 400, fontSize: isMdUp ? '16px' : '12px', textAlign:'center' }}> 
+                (Instagram, Facebook, Twitter, YouTube)
+              </span>
+            </p>
 
               <div className="animate__backInLeft" style={{ marginLeft: '-2%', marginRight: '2%' }}>
                 <h6
@@ -184,19 +188,33 @@ export default function HomeMinimal() {
             </div>
 
             <div className="slider-2">
-              <p>
+            <p
+              style={{
+                fontWeight: 700,
+                fontSize: isMdUp ? '21px' : '16px', // Unified font size control
+                lineHeight: 1.5, 
+                textAlign: 'center',                   // Adjusted for better readability
+                marginTop : '10px'
+              }}
+            >
+              Pick your monthly posts{' '}
+              <span style={{ fontWeight: 400, fontSize: isMdUp ? '16px' : '12px', textAlign:'center' }}> 
+                (Average content /month ?)
+              </span>
+            </p>
+              {/* <p>
                 <span
                   style={{
                     paddingTop: '10px',
                     fontWeight: 700,
-                    fontSize: '21px',
-                    //
+                    fontSize: '18px',
+                    textAlign : 'center'
                   }}
                 >
                   Pick your monthly posts
-                </span>{' '}
+                </span>
                 (Average content /month ?)
-              </p>
+              </p> */}
               <div style={{ marginLeft: '-2%', marginRight: '2%' }}>
                 <h6
                   style={{
@@ -253,7 +271,7 @@ export default function HomeMinimal() {
             </div>
           </div>
           <div className="slide_area_content">
-            <h3 style={{ fontSize: '32px', color: 'white' }}>
+            <h3 style={{ fontSize: isMdUp ? '32px' : '24px', color: 'white' }}>
               treasure could lie between{' '}
               <span
                 style={{
@@ -261,6 +279,7 @@ export default function HomeMinimal() {
                   // background: '-webkit-linear-gradient(20deg, #0171ed 40%, #d001ff 50%)',
                   webkitBackgroundClip: 'text',
                   // webkitTextFillColor: 'transparent',
+                  fontSize : !isMdUp && '28px',
                 }}
               >
                 ₹ {nFormatter(counter, 0)}
@@ -272,12 +291,13 @@ export default function HomeMinimal() {
                   // background: '-webkit-linear-gradient(20deg, #0171ed 40%, #d001ff 50%)',
                   webkitBackgroundClip: 'text',
                   // webkitTextFillColor: 'transparent',
+                  fontSize : !isMdUp && '28px',
                 }}
               >
                 ₹ {nFormatter(counter * 2, 0)} more
               </span>{' '}
             </h3>
-            <p>based on estimated purchase between 1% and 5% from your own store.</p>
+            <p style={{fontSize : !isMdUp && '22px' }}>based on estimated purchase between 1% and 5% from your own store.</p>
           </div>
           <div className="join-waitlist">
             <div className="link">

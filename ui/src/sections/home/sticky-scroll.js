@@ -4,11 +4,13 @@ import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import './sticky-scroll.css';
 import { useNavigate } from "react-router-dom"; 
+import { useResponsive } from 'src/hooks/use-responsive';
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 
 export default function StickyScroll() {
+  const isMdUp = useResponsive('up', 'md');
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -58,11 +60,14 @@ export default function StickyScroll() {
           >
             <div className="grid-fixed-content-section">
               <div
+                style = {{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="dd52dad8-9ef0-92ed-358f-1544c9317158"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
-                  <Typography variant="h1" color="white">
+                  <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                     Your audience seeks links
                   </Typography>
                 </div>
@@ -82,15 +87,15 @@ export default function StickyScroll() {
                       sx={{
                         textAlign: 'left',
 
-                        marginTop: '40px',
+                        marginTop: isMdUp ? '40px' : '20px',
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '22px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -99,19 +104,22 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
               <div
+                style = {{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="c090141e-543c-a541-da89-a0cf8002201e"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
                   <h2 className="display-medium">
-                    <Typography variant="h1" color="white">
+                    <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                       Sales Spark: Journey Begins.
                     </Typography>
                   </h2>
@@ -134,22 +142,22 @@ export default function StickyScroll() {
               // srcSet="https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-500.png 500w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-800.png 800w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1080.png 1080w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min-p-1600.png 1600w, https://assets-global.website-files.com/63072d7ddc776c83938df8c1/630f773ffff460ae65c359f5_Illustration%2002-min.png 1764w"
               className="grid-scrolling-image img2 phone"
             />
-                <div className="margin-24px">
+                <div  className="margin-24px">
                   <div className="text-b1">
                     <Typography
                       variant="h3"
                       sx={{
                         textAlign: 'left',
 
-                        marginTop: '40px',
+                        marginTop: isMdUp ? '40px' : '20px',
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '22px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -157,19 +165,22 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer" onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer" onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
               <div
+                style={{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="3bdfd1d5-58a2-1730-d3b6-897ea42fe92a"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
                   <h2 className="display-medium">
-                    <Typography variant="h1" color="white">
+                    <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                       Brands Acknowledge Your Value.
                     </Typography>
                   </h2>
@@ -199,15 +210,15 @@ export default function StickyScroll() {
                       sx={{
                         textAlign: 'left',
 
-                        marginTop: '40px',
+                        marginTop: isMdUp ? '40px' : '20px',
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '20px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -215,19 +226,22 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
               <div
+                style={{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="248ec03d-11ba-fe55-be60-b22e2a1d386f"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
                   <h2 className="display-medium">
-                    <Typography variant="h1" color="white">
+                    <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                       Your Content, Your Rules !
                     </Typography>
                   </h2>
@@ -257,15 +271,15 @@ export default function StickyScroll() {
                       sx={{
                         textAlign: 'left',
 
-                        marginTop: '40px',
+                        marginTop: isMdUp ? '40px' : '20px',
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '22px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -273,19 +287,22 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
               <div
+                style = {{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="c0243d0c-dd24-7f90-12e7-32bc42ba74f9"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
                   <h2 className="display-medium">
-                    <Typography variant="h1" color="white">
+                    <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                       Elevate Brilliance: Let Data Guide Your Impact.
                     </Typography>
                   </h2>
@@ -298,6 +315,9 @@ export default function StickyScroll() {
                   className="grid-scrolling-image img5 phone"
                 /> */}
                 <img
+                style = {{
+                  margin : 'auto'
+                }}
               // eslint-disable-next-line no-octal-escape
               src="assets\images\home\3.png"
               loading="lazy"
@@ -319,11 +339,11 @@ export default function StickyScroll() {
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '22px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -331,19 +351,22 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
             </div>
             <div className="grid-fixed-content-section">
               <div
+                style = {{
+                  marginBottom : isMdUp ? '72px' : '40px'
+                }}
                 data-w-id="c7fc4248-4d08-706c-5ad4-18d1e66339ca"
                 className="grid-fixed-content-container"
               >
                 <div className="margin-24px">
                   <h2 className="display-medium">
-                    <Typography variant="h1" color="white">
+                    <Typography variant={isMdUp ? "h1" : "h2"} color="white">
                       You Deserve Exceptional
                     </Typography>
                   </h2>
@@ -373,15 +396,15 @@ export default function StickyScroll() {
                       sx={{
                         textAlign: 'left',
 
-                        marginTop: '40px',
+                        marginTop: isMdUp ? '40px' : '20px',
                       }}
                       style={{
                         fontFamily: 'Poppins',
-                        fontSize: '24px',
+                        fontSize: isMdUp ? '24px' : '22px',
                         fontWeight: '400',
                         lineHeight: '32px',
                         letterSpacing: '-0.5px',
-                        textAlign: 'left',
+                        textAlign: isMdUp ? 'left' : 'center',
                         color: 'white',
                       }}
                     >
@@ -389,7 +412,7 @@ export default function StickyScroll() {
                     </Typography>
                   </div>
                 </div>
-                <Button target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
+                <Button sx={{marginTop : isMdUp ? '40px !important' : '20px !important'}} target="_blank" className="button-light w-button" rel="noreferrer"  onClick={handleGetStartedClick}>
                   Get Started
                 </Button>
               </div>
@@ -400,6 +423,7 @@ export default function StickyScroll() {
             className="grid-scroll-image-portion illustration-scroll"
           >
             <img
+              style={{ paddingTop : '20px'}}
               // eslint-disable-next-line no-octal-escape
               src="assets\images\home\6.png"
               loading="lazy"
