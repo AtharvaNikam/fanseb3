@@ -261,6 +261,7 @@ export class UserProductsController {
     products: any,
   ): Promise<any> {
     try {
+      console.log(products);
       const productData = await this.productsRepository.findById(id);
       await this.productsRepository.updateById(id, products);
       return {

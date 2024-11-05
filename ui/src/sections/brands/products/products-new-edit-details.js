@@ -24,6 +24,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import { useParams, useRouter } from 'src/routes/hook';
 import axiosInstance from 'src/utils/axios';
 import { fData } from 'src/utils/format-number';
+import { mutate } from 'swr';
 import * as Yup from 'yup';
 
 // ----------------------------------------------------------------------
@@ -135,11 +136,13 @@ export default function ProductsNewEditDetails({ currentProduct }) {
         // Show success notification
         enqueueSnackbar('Product Updated successfully!', { variant: 'success' });
         router.push(`/brand-dashboard/brands/${id}/products`);
+        router.reload();
       } else {
         await axiosInstance.post(`/brands/${id}/products`, inputData);
         // Show success notification
         enqueueSnackbar('Product added successfully!', { variant: 'success' });
         router.push(`/brand-dashboard/brands/${id}/products`);
+        router.reload();
       }
     } catch (error) {
       // Show error notification

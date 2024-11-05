@@ -15,6 +15,8 @@ import { useGetAdminSalesHistory, useGetOrders } from 'src/api/orders';
 import AppAreaInstalled from '../app-area-installed';
 import AppNewInvoice from '../app-new-invoice';
 import AppWidgetSummary from '../app-widget-summary';
+import { useGetBrandWithdraws } from 'src/api/brandWithdraws';
+import { useGetAdminBrandWithdraws } from 'src/api/adminWithdraws';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +24,7 @@ export default function OverviewAppView() {
   const { user } = useMockedUser();
   const { salesData } = useGetAdminSalesHistory();
   const [recentOrders, setRecentOrders] = useState([]);
+  const [recentWithdraws, setRecentWithdraws] = useState([]);
   const theme = useTheme();
 
   const {orders, refreshOrder} = useGetOrders();
@@ -31,6 +34,15 @@ export default function OverviewAppView() {
       setRecentOrders(orders?.slice(0, 5)); // Get the last 5 orders
     }
   }, [orders]);
+
+  const { brandWithdraws } = useGetAdminBrandWithdraws();
+
+  useEffect(() => {
+    if (brandWithdraws) {
+      setRecentWithdraws(brandWithdraws?.slice(0, 5)); // Get the last 5 orders
+    }
+  }, [brandWithdraws]);
+
 
 
   const settings = useSettingsContext();
@@ -138,19 +150,18 @@ export default function OverviewAppView() {
             ]}
           />
         </Grid>
-        <Grid xs={12} lg={6}>
+        {/* <Grid xs={12} lg={6}>
           <AppNewInvoice
             title="Recent Withdrawals"
-            tableData={_appInvoices}
+            tableData={recentWithdraws}
             tableLabels={[
               { id: 'id', label: 'Brand Name' },
               { id: 'category', label: 'Amount' },
-              { id: 'status', label: 'Status' },
               { id: 'price', label: 'Created' },
-              { id: '', label: 'Actions' },
+              { id: 'status', label: 'Status' },
             ]}
-          />
-        </Grid>
+          /> */}
+        {/* </Grid> */}
         {/* <Grid xs={12} lg={12}>
           <AppNewInvoice
             title="Popular Products"

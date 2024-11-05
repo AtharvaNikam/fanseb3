@@ -83,6 +83,10 @@ export default function UserListView() {
 
   const [filters, setFilters] = useState(defaultFilters);
 
+  // useEffect(() => {
+  //   refreshProducts();
+  // }, [])
+
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
@@ -222,9 +226,7 @@ export default function UserListView() {
 
         const isStatus = updatedTableData[userIndex].status;
         const inputData = {
-          user: {
-            status: isStatus,
-          },
+          status: isStatus,
         };
 
         try {

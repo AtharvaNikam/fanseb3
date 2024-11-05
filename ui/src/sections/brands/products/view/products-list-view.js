@@ -88,6 +88,10 @@ export default function UserListView() {
     filters,
   });
 
+  // useEffect(() => {
+  //   refreshProducts();
+  // }, [])
+
   const dataInPage = dataFiltered.slice(
     table.page * table.rowsPerPage,
     table.page * table.rowsPerPage + table.rowsPerPage

@@ -184,10 +184,10 @@ export class UserReelsController {
     return reel;
   }
 
-  // @authenticate({
-  //   strategy: 'jwt',
-  //   options: {required: [PermissionKeys.INFLUENCER]},
-  // })
+  @authenticate({
+    strategy: 'jwt',
+    options: {required: [PermissionKeys.INFLUENCER]},
+  })
   @patch('/users/reels/{id}', {
     responses: {
       '200': {
@@ -202,6 +202,7 @@ export class UserReelsController {
     @requestBody()
     reels: any,
   ): Promise<any> {
+    console.log('request body', requestBody);
     const inputData: Partial<Reels> = {
       name: reels.name,
       reelLink: reels.reelLink,
