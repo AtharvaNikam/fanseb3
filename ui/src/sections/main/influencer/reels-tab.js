@@ -3,13 +3,14 @@ import { Reels } from '@sayings/react-reels';
 import '@sayings/react-reels/dist/index.css';
 // @mui
 import { Box, Grid, Stack } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useRouter } from 'src/routes/hook';
 import Videos from 'src/sections/common/reel-player/video-player';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import SwiperCore from 'swiper/core';
+import ReactPlayer from 'react-player';
 import ProductList from '../common/product-list';
 
 // ----------------------------------------------------------------------
@@ -29,32 +30,73 @@ export default function ReelsTab({ reel }) {
 
   SwiperCore.use([Autoplay]);
 
-  const [isPlaying, setIsPlaying] = useState(true);
+  // const [isPlaying, setIsPlaying] = useState(true);
+  // const [isMuted, setIsMuted] = useState(true); // Mute by default
+  // const playerRef = useRef(null);
+  // const [isVisible, setIsVisible] = useState(false); // Track visibility for play/pause control
 
-  // Custom video component for mobile
+  // // Throttled video play/pause control
+  // const handleVisibilityChange = (entries) => {
+  //   entries.forEach(entry => {
+  //     if (entry.isIntersecting) {
+  //       setIsVisible(true);
+  //     } else {
+  //       setIsVisible(false);
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(handleVisibilityChange, {
+  //     threshold: 0.5, // Require 50% visibility for video to play/pause
+  //   });
+
+  //   if (playerRef.current) {
+  //     observer.observe(playerRef.current);
+  //     setIsVisible(true);
+  //   }
+
+  //   return () => {
+  //     if (playerRef.current) {
+  //       observer.unobserve(playerRef.current);
+  //     }
+  //   };
+  // }, []);
+
+  // const handleMuteToggle = () => {
+  //   setIsMuted((prev) => !prev);
+  // };
+
+
   const VideoReel = () => (
     <Box
-      component="video"
-      controls
-      autoPlay
-      muted
-      onPause={() => setIsPlaying(false)}
-      onPlay={() => setIsPlaying(true)}
+      // ref={playerRef}
+      // onClick={handleMuteToggle}
       sx={{
         width: '100%',
         height: '85vh',
         backgroundColor: 'black',
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: '20px',  
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',  
+        borderRadius: '20px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
+        display:'flex',
+        alignItems : 'center'
       }}
     >
-      <source src={reel?.reelLink.fileUrl} type="video/mp4" />
-      Your browser does not support the video tag.
+      {/* <ReactPlayer
+        url={reelLink?.fileUrl}
+        playing={isVisible && isPlaying}
+        muted={isMuted}
+        loop
+        width="100%"
+        height="100%"
+        ref={playerRef}
+        // controls
+      /> */}
+       <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
     </Box>
-  );
-
+  );  
   return (
     <>
       {!mdUp && (

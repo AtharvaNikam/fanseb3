@@ -24,10 +24,16 @@ export default function SingleReelPage() {
       try {
         console.log('fetching reel by reelId');
 
-        const inputData = {
-          reelId: _reelId,
-        };
+        let inputData = {};
+        
+        if(_reelId){
+          inputData = {
+            reelId: _reelId,
+          };
+        }
         const response = await axiosInstance.post(`/users/randomReels?filter[limit]=10`, inputData);
+
+        console.log(response);
 
         if (!response.status === 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);

@@ -9,6 +9,7 @@ import { useCheckout } from 'src/sections/hooks';
 import { useSnackbar } from 'src/components/snackbar';
 import CarouselCenterMode from 'src/sections/main/influencer/products-carousel-center';
 import './player.css';
+import { useResponsive } from 'src/hooks/use-responsive';
 
 function Videos({ id, src, user, description, share, products }) {
   const { userProfile, name: channel, userName } = user;
@@ -21,6 +22,8 @@ function Videos({ id, src, user, description, share, products }) {
   const [follow, setFollow] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const mdUp = useResponsive('up', 'md');
+
 
   const videoRef = useRef(null);
   const handleVideoPress = () => {
@@ -202,7 +205,7 @@ function Videos({ id, src, user, description, share, products }) {
         className="video__player"
         onClick={handleVideoPress}
         loop
-        controls
+        controls = {mdUp ? true : false}
         ref={videoRef}
         src={src}
         style={{
