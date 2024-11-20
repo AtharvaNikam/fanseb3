@@ -4,7 +4,7 @@ import { ProductsListView } from 'src/sections/influencer/products/view';
 
 // ----------------------------------------------------------------------
 
-export default function ProductsListPage() {
+export default function ProductsListPage() {  // product list page
   return (
     <>
       <Helmet>
