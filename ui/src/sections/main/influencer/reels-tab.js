@@ -10,7 +10,7 @@ import Videos from 'src/sections/common/reel-player/video-player';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import SwiperCore from 'swiper/core';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import ProductList from '../common/product-list';
 
 // ----------------------------------------------------------------------
