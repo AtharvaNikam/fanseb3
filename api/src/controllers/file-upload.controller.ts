@@ -111,25 +111,6 @@ export class FileUploadController {
     return files;
   }
 
-  @get('/files/{filename}')
-  @oas.response.file()
-  downloadFile(
-    @param.path.string('filename') fileName: string,
-    @inject(RestBindings.Http.RESPONSE) response: Response,
-  ) {
-    const file = this.validateFileName(fileName);
-    fs.readFile(file, function (err, data) {
-      if (err) {
-        response.writeHead(404);
-        response.end('Something Went Wrong');
-      } else {
-        response.writeHead(200);
-        response.end(data); // Send the file data to the browser.
-      }
-    });
-    return response;
-  }
-
   /**
    * Validate file names to prevent them goes beyond the designated directory
    * @param fileName - File name
@@ -140,4 +121,69 @@ export class FileUploadController {
     // The resolved file is outside sandbox
     throw new HttpErrors.BadRequest(`Invalid file name: ${fileName}`);
   }
+
+  private getContentType(filePath: string): string {
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeTypes: {[key: string]: string} = {
+      '.mp4': 'video/mp4',
+      '.webm': 'video/webm',
+      '.mov': 'video/quicktime', // Added support for .mov files
+      '.mp3': 'audio/mpeg',
+      '.jpg': 'image/jpeg',
+      '.png': 'image/png',
+      '.pdf': 'application/pdf',
+    };
+    return mimeTypes[ext] || 'application/octet-stream';
+  }
+
+  @get('/files/{filename}')
+downloadFile(
+  @param.path.string('filename') fileName: string,
+  @inject(RestBindings.Http.RESPONSE) response: Response,
+) {
+  try {
+    const file = this.validateFileName(fileName); // Ensure the file path is valid
+    const stat = fs.statSync(file);
+    const fileSize = stat.size;
+
+    // Check if the client requested a range
+    const range = response.req.headers.range;
+
+    if (range) {
+      // Parse the range header
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+
+      // Ensure range is valid
+      if (start >= fileSize || end >= fileSize) {
+        response.status(416).header('Content-Range', `bytes */${fileSize}`).end();
+        return;
+      }
+
+      const chunkSize = end - start + 1;
+      const fileStream = fs.createReadStream(file, {start, end});
+
+      response.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': this.getContentType(file), // Determine content type dynamically
+      });
+
+      fileStream.pipe(response);
+    } else {
+      // Serve the whole file
+      response.writeHead(200, {
+        'Content-Length': fileSize,
+        'Content-Type': this.getContentType(file),
+      });
+
+      fs.createReadStream(file).pipe(response);
+    }
+  } catch (error) {
+    console.error('File serving error:', error);
+    response.status(404).send('File not found or invalid request.');
+  }
+}
 }
