@@ -205,7 +205,7 @@ function Videos({ id, src, user, description, share, products }) {
         className="video__player"
         onClick={handleVideoPress}
         loop
-        controls = {mdUp ? true : false}
+        controls
         ref={videoRef}
         src={src}
         style={{
