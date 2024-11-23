@@ -114,7 +114,7 @@ export default function ProductList({ product, influencerId, handleViewProductDe
           paddingLeft: '0px !important'
         }}
       >
-        <Grid item md={6} sx={{ paddingLeft: '10px !important' }}>
+        <Grid item md={6} xs={6} sm={6} sx={{ paddingLeft: '10px !important' }}>
           <Box onClick={handleViewProductDetails}>
             <img
               alt="product_image"
@@ -129,7 +129,7 @@ export default function ProductList({ product, influencerId, handleViewProductDe
             />
           </Box>
         </Grid>
-        <Grid item md={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        <Grid item md={6} xs={6} sm={6} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Typography
             style={{
               fontFamily: 'Rubik',
