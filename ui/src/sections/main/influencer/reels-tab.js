@@ -72,7 +72,7 @@ export default function ReelsTab({ reel }) {
     <Box
       sx={{
         width: '100%',
-        height: { xs: '95vh', sm: '95vh' }, // Dynamic height
+        height: { xs: '85vh', sm: '85vh' }, // Dynamic height
         backgroundColor: 'black',
         position: 'relative',
         overflow: 'hidden',
