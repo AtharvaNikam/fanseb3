@@ -38,28 +38,35 @@ function Videos({ id, src, user, description, share, products }) {
 
   useEffect(() => {
     const options = {
-      root: null,
+      root: null, // Default viewport
       rootMargin: '0px',
-      threshold: 0.2,
+      threshold: 0.2, // Trigger when 20% of the video is visible
     };
+  
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(async (entry) => {
+      entries.forEach((entry) => {
+        const video = entry.target; // Target the specific video element
         if (entry.isIntersecting) {
-          videoRef.current.play();
-          const currentId = videoRef.current.id;
-          onUpdateReelId(currentId);
+          video.play();
+          onUpdateReelId(video.id); // Update reelId when video starts playing
         } else {
-          videoRef.current.pause();
+          video.pause();
         }
       });
     }, options);
-
-    observer.observe(videoRef.current);
-
+  
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      observer.observe(videoElement);
+    }
+  
     return () => {
-      observer.disconnect();
+      if (videoElement) {
+        observer.unobserve(videoElement);
+      }
+      observer.disconnect(); // Clean up observer
     };
-  }, [onUpdateReelId, router]);
+  }, [onUpdateReelId]);  
 
   const handleShareButtonClick = () => {
     // Construct the current reel URL

@@ -200,8 +200,8 @@ export default function InfluencerView() {
                     }}
                     modules={[Navigation, Keyboard, Mousewheel, Pagination, A11y]}
                   >
-                    {reels.map((reel) => (
-                      <SwiperSlide key={reel.id}>
+                    {reels.map((reel, index) => (
+                      <SwiperSlide key={index}>
                         <ReelsTab reel={reel} />
                       </SwiperSlide>
                     ))}
