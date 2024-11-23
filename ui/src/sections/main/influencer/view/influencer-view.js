@@ -39,38 +39,47 @@ export default function InfluencerView() {
 
   const fetchAllReelsWithoutId = useCallback(async () => {
     try {
-        if(reelId){
+      console.log('reelId', reelId);
+  
+      if (reelId !== null && reelId !== undefined && !Number.isNaN(Number(reelId))) { 
+        console.log('Entered block with reelId');
+        
         const reqData = {
-          id : Number(reelId)
-        }
+          id: Number(reelId),
+        };
+        console.log('reqData', reqData);
+        
         const response = await axiosInstance.post(
-          `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`, reqData
+          `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`,
+          reqData
         );
-
+  
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+  
         const { data } = response;
         setReels((prevReels) => [...prevReels, ...data]);
-      }else{
+      } else {
+        console.log('Entered block without reelId');
+        
         const response = await axiosInstance.post(
           `/users/randomReels?filter[limit]=10&filter[skip]=${skip}`
         );
-
+  
         if (response.status !== 200) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+  
         const { data } = response;
         setReels((prevReels) => [...prevReels, ...data]);
-      } 
-    }catch (error) {
-        console.error('🚀 Error fetching reels:', error.message);
       }
-    
+    } catch (error) {
+      console.error('🚀 Error fetching reels:', error.message);
+    }
   }, [skip, reelId]);
-
+  
+  
   // const fetchReelById = useCallback(async (reelId) => {
   //   try {
   //     console.log('fetching reel by id:', reelId);
