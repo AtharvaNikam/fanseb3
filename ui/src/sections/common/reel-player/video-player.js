@@ -211,9 +211,11 @@ function Videos({ id, src, user, description, share, products }) {
         id={id}
         className="video__player"
         onClick={handleVideoPress}
+        preload="none"
         loop
-        controls
+        autoPlay={true}
         playsInline
+        controls
         ref={videoRef}
         src={src}
         style={{
