@@ -5,10 +5,10 @@ import CompactLayout from 'src/layouts/compact';
 import MainLayout from 'src/layouts/main';
 // components
 import { SplashScreen } from 'src/components/loading-screen';
+import { useResponsive } from 'src/hooks/use-responsive';
 import { paths } from '../paths';
 
-// ----------------------------------------------------------------------
-
+// Pages (lazy-loaded)
 export const HomePage = lazy(() => import('src/pages/main/home'));
 const Page500 = lazy(() => import('src/pages/500'));
 const Page403 = lazy(() => import('src/pages/403'));
@@ -31,76 +31,99 @@ const SingleReelPage = lazy(() => import('src/pages/main/reels/singleReelPage'))
 const PrivacyPolicy = lazy(() => import('src/sections/home/privacy-policy'));
 const TermsAndConditions = lazy(() => import('src/sections/home/termsConditions'));
 const Faq = lazy(() => import('src/sections/home/faq'));
-const Info = lazy(()=> import('src/sections/home/OurInfo'));
+const Info = lazy(() => import('src/sections/home/OurInfo'));
 const ReturnPolicy = lazy(() => import('src/sections/home/ReturnPolicy'));
 const ProductList = lazy(() => import('src/pages/main/products-list/list'));
-// ----------------------------------------------------------------------
 
-export const mainRoutes = [
-  {
-    element: (
-      <MainLayout>
-        <Suspense fallback={<SplashScreen />}>
-          <Outlet />
-        </Suspense>
-      </MainLayout>
-    ),
-    children: [
-      { path: 'checkout', element: <CheckoutPage /> },
-      {
-        path: 'brands',
-        children: [
-          { element: <BrandsIndexPage />, index: true },
-          { path: 'list', element: <BrandsListPage /> },
+const MainRoutes = () => {
+  const mdUp = useResponsive('up', 'md');
+
+  const reelsRoutes = [
+    {
+      path: 'reels',
+      children: [
+        { element: <ReelsPage />, index: true },
+        { path: ':reelId', element: <ReelsPage /> },
+      ],
+    },
+  ];
+
+  const mainLayoutRoutes = [
+    {
+      element: (
+        <MainLayout>
+          <Suspense fallback={<SplashScreen />}>
+            <Outlet />
+          </Suspense>
+        </MainLayout>
+      ),
+      children: [
+        { path: 'checkout', element: <CheckoutPage /> },
+        {
+          path: 'brands',
+          children: [
+            { element: <BrandsIndexPage />, index: true },
+            { path: 'list', element: <BrandsListPage /> },
+            {
+              path: ':brandId',
+              children: [
+                { element: <BrandsDetailsPage />, index: true },
+                { path: 'details', element: <BrandsDetailsPage /> },
+                { path: 'product/:productId', element: <ProductDetailsPage /> },
+              ],
+            },
+          ],
+        },
+        { path: '/influencer/:influencerId', element: <InfluencerDetailsPage /> },
+        { path: '/influencer/:influencerId/details', element: <InfluencerDetailsPage /> },
+        { path: '/influencer/:influencerId/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
+        { path: '/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
+        { path: paths.about, element: <AboutPage /> },
+        { path: paths.contact, element: <ContactPage /> },
+        { path: paths.faqs, element: <FaqsPage /> },
+        { path: paths.services, element: <ServicesPage /> },
+        { path: paths.home, element: <HomePage /> },
+        { path: paths.privacyPolicy, element: <PrivacyPolicy /> },
+        { path: paths.termsConditions, element: <TermsAndConditions /> },
+        { path: paths.faqSection, element: <Faq /> },
+        { path: paths.ourInfo, element: <Info /> },
+        { path: paths.returnPolicy, element: <ReturnPolicy /> },
+        { path: paths.productsList, element: <ProductList /> },
+        ...(mdUp ? reelsRoutes : []),
+      ],
+    },
+
+    {
+      element: (
+        <CompactLayout>
+          <Suspense fallback={<SplashScreen />}>
+            <Outlet />
+          </Suspense>
+        </CompactLayout>
+      ),
+      children: [
+        { path: paths.comingSoon, element: <ComingSoonPage /> },
+        { path: paths.maintenance, element: <MaintenancePage /> },
+        { path: paths.page500, element: <Page500 /> },
+        { path: paths.page404, element: <Page404 /> },
+        { path: paths.page403, element: <Page403 /> },
+      ],
+    },
+
+    ...(!mdUp
+      ? [
           {
-            path: ':brandId',
-            children: [
-              { element: <BrandsDetailsPage />, index: true },
-              { path: 'details', element: <BrandsDetailsPage /> },
-              { path: 'product/:productId', element: <ProductDetailsPage /> },
-            ],
+            element: (
+              <Suspense fallback={<SplashScreen />}>
+                <Outlet />
+              </Suspense>
+            ),
+            children: reelsRoutes,
           },
-        ],
-      },
-      {
-        path: 'reels',
-        children: [
-          { element: <ReelsPage />, index: true },
-          { path: ':reelId', element: <ReelsPage /> },
-        ],
-      },
-      { path: '/influencer/:influencerId', element: <InfluencerDetailsPage /> },
-      { path: '/influencer/:influencerId/details', element: <InfluencerDetailsPage /> },
-      { path: '/influencer/:influencerId/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
-      { path: '/brand/:brandId/product/:productId', element: <ProductDetailsPage /> },
-      { path: paths.about, element: <AboutPage /> },
-      { path: paths.contact, element: <ContactPage /> },
-      { path: paths.faqs, element: <FaqsPage /> },
-      { path: paths.services, element: <ServicesPage /> },
-      { path: paths.home, element: <HomePage /> },
-      { path: paths.privacyPolicy, element:<PrivacyPolicy/>},
-      { path: paths.termsConditions, element:<TermsAndConditions/>},
-      { path: paths.faqSection, element:<Faq/>},
-      { path: paths.ourInfo, element:<Info/>},
-      { path: paths.returnPolicy, element:<ReturnPolicy/>},
-      { path: paths.productsList, element:<ProductList/>}
-    ],
-  },
+        ]:[]),
+  ];
 
-  {
-    element: (
-      <CompactLayout>
-        <Suspense fallback={<SplashScreen />}>
-          <Outlet />
-        </Suspense>
-      </CompactLayout>
-    ),
-    children: [
-      { path: paths.comingSoon, element: <ComingSoonPage /> },
-      { path: paths.maintenance, element: <MaintenancePage /> },
-      { path: paths.page500, element: <Page500 /> },
-      { path: paths.page404, element: <Page404 /> },
-      { path: paths.page403, element: <Page403 /> },
-    ],
-  },
-];
+  return mainLayoutRoutes; // Return the routes array
+};
+
+export { MainRoutes };

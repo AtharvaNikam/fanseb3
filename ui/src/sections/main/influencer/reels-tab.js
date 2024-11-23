@@ -70,54 +70,77 @@ export default function ReelsTab({ reel }) {
 
   const VideoReel = () => (
     <Box
-      // ref={playerRef}
-      // onClick={handleMuteToggle}
       sx={{
         width: '100%',
-        height: '85vh',
+        height: { xs: '95vh', sm: '95vh' }, // Dynamic height
         backgroundColor: 'black',
         position: 'relative',
         overflow: 'hidden',
         borderRadius: '20px',
         boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.2)',
-        display:'flex',
-        alignItems : 'center'
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
-      {/* <ReactPlayer
-        url={reelLink?.fileUrl}
-        playing={isVisible && isPlaying}
-        muted={isMuted}
-        loop
-        width="100%"
-        height="100%"
-        ref={playerRef}
-        // controls
-      /> */}
-       <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
+      <Videos id={id} src={reel?.reelLink.fileUrl} user={user} description={name} />
     </Box>
   );  
   return (
     <>
       {!mdUp && (
-        <Stack spacing={2} direction="column" justifyContent="center" alignItems="center" sx={{ position: 'relative', width: '100%', maxWidth:'100%', borderRadius: '14px', padding : '0px' }}>
-          {/* Full-Screen Video Reel */}
-            <VideoReel />
-          {/* Product Carousel at Bottom */}
-          <Box sx={{ py: 1, width: '95%', mx: 'auto', position:'absolute', bottom : '40px' }}>
-            <Swiper spaceBetween={10} slidesPerView={1} pagination={{ clickable: true }} autoplay={{ delay: 3000 }}>
-              {products?.map((product) => (
-                <SwiperSlide key={product.id}>
-                  <ProductList
-                    product={product}
-                    influencerId={user.id}
-                    handleViewProductDetails={() => handleViewProductDetails(product.id, product.brandId)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Box>
-        </Stack>
+        <Stack
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '100%',
+          borderRadius: '14px',
+          padding: 0,
+        }}
+      >
+        {/* Video Reel */}
+        <VideoReel />
+
+        {/* Product Carousel */}
+        <Box
+          sx={{
+            py: 1,
+            width: '95%',
+            mx: 'auto',
+            position: 'absolute',
+            bottom: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={1}
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 3000 }}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+            }}
+            style={{ overflow: 'visible' }}
+          >
+            {products?.map((product) => (
+              <SwiperSlide key={product.id}>
+                <ProductList
+                  product={product}
+                  influencerId={user.id}
+                  handleViewProductDetails={() =>
+                    handleViewProductDetails(product.id, product.brandId)
+                  }
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
+      </Stack>
       )}
       {mdUp && (
         <Stack

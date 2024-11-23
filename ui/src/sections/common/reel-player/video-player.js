@@ -48,7 +48,7 @@ function Videos({ id, src, user, description, share, products }) {
         const video = entry.target; // Target the specific video element
         if (entry.isIntersecting) {
           video.play();
-          onUpdateReelId(video.id); // Update reelId when video starts playing
+          // onUpdateReelId(video.id); // Update reelId when video starts playing
         } else {
           video.pause();
         }
@@ -66,7 +66,7 @@ function Videos({ id, src, user, description, share, products }) {
       }
       observer.disconnect(); // Clean up observer
     };
-  }, [onUpdateReelId]);  
+  }, []);  
 
   const handleShareButtonClick = () => {
     // Construct the current reel URL
@@ -213,6 +213,7 @@ function Videos({ id, src, user, description, share, products }) {
         onClick={handleVideoPress}
         loop
         controls
+        playsInline
         ref={videoRef}
         src={src}
         style={{

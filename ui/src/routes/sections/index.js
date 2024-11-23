@@ -11,7 +11,7 @@ import { brandDashboardRoutes } from './brand-dashboard';
 import { componentsRoutes } from './components';
 import { customerDashboardRoutes } from './customer-dashboard';
 import { influencerDashboardRoutes } from './influencer-dashboard';
-import { HomePage, mainRoutes } from './main';
+import { HomePage, MainRoutes } from './main';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ export default function Router() {
     ...adminDashboardRoutes,
 
     // Main routes
-    ...mainRoutes,
+    ...MainRoutes(),
 
     // Components routes
     ...componentsRoutes,
