@@ -137,53 +137,67 @@ export class FileUploadController {
   }
 
   @get('/files/{filename}')
-downloadFile(
-  @param.path.string('filename') fileName: string,
-  @inject(RestBindings.Http.RESPONSE) response: Response,
-) {
-  try {
-    const file = this.validateFileName(fileName); // Ensure the file path is valid
-    const stat = fs.statSync(file);
-    const fileSize = stat.size;
-
-    // Check if the client requested a range
-    const range = response.req.headers.range;
-
-    if (range) {
-      // Parse the range header
-      const parts = range.replace(/bytes=/, '').split('-');
-      const start = parseInt(parts[0], 10);
-      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
-
-      // Ensure range is valid
-      if (start >= fileSize || end >= fileSize) {
-        response.status(416).header('Content-Range', `bytes */${fileSize}`).end();
-        return;
+  async downloadFile(
+    @param.path.string('filename') fileName: string,
+    @inject(RestBindings.Http.RESPONSE) response: Response,
+  ) {
+    try {
+      console.log(`Received request to download file: ${fileName}`);
+  
+      // Validate the file name and resolve the path
+      const file = await this.validateFileName(fileName);
+      console.log(`Resolved file path: ${file}`);
+  
+      // Get file statistics
+      const stat = fs.statSync(file);
+      const fileSize = stat.size;
+      console.log(`File size: ${fileSize} bytes`);
+  
+      // Check if the client requested a range
+      const range = response.req.headers.range;
+      console.log(`Range header: ${range || 'Not provided'}`);
+  
+      if (range) {
+        // Parse range
+        const parts = range.replace(/bytes=/, '').split('-');
+        const start = parseInt(parts[0], 10);
+        const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+        console.log(`Parsed range: start=${start}, end=${end}`);
+  
+        if (start >= fileSize || end >= fileSize) {
+          console.error(`Invalid range: start=${start}, end=${end}, fileSize=${fileSize}`);
+          response.status(416).header('Content-Range', `bytes */${fileSize}`).end();
+          return;
+        }
+  
+        // Serve partial content
+        const chunkSize = end - start + 1;
+        console.log(`Chunk size: ${chunkSize} bytes`);
+        const fileStream = fs.createReadStream(file, { start, end });
+  
+        response.writeHead(206, {
+          'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+          'Accept-Ranges': 'bytes',
+          'Content-Length': chunkSize,
+          'Content-Type': await this.getContentType(file),
+        });
+  
+        console.log(`Serving file in range mode: ${start}-${end}`);
+        fileStream.pipe(response);
+      } else {
+        // Serve the entire file
+        response.writeHead(200, {
+          'Content-Length': fileSize,
+          'Content-Type': await this.getContentType(file),
+        });
+  
+        console.log('Serving entire file.');
+        fs.createReadStream(file).pipe(response);
       }
-
-      const chunkSize = end - start + 1;
-      const fileStream = fs.createReadStream(file, {start, end});
-
-      response.writeHead(206, {
-        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-        'Accept-Ranges': 'bytes',
-        'Content-Length': chunkSize,
-        'Content-Type': this.getContentType(file), // Determine content type dynamically
-      });
-
-      fileStream.pipe(response);
-    } else {
-      // Serve the whole file
-      response.writeHead(200, {
-        'Content-Length': fileSize,
-        'Content-Type': this.getContentType(file),
-      });
-
-      fs.createReadStream(file).pipe(response);
+    } catch (error) {
+      console.error('File serving error:', error.message);
+      response.status(404).send('File not found or invalid request.');
     }
-  } catch (error) {
-    console.error('File serving error:', error);
-    response.status(404).send('File not found or invalid request.');
   }
-}
+  
 }
