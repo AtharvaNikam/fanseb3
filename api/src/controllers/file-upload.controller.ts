@@ -18,10 +18,10 @@ import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from '../keys';
 import {FileUploadHandler} from '../types';
 import ffmpeg from 'fluent-ffmpeg';
 
-const readdir = promisify(fs.readdir);
+// const readdir = promisify(fs.readdir);
 
-const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1-essentials_build\\bin\\ffmpeg.exe';  // Make sure this is correct
-ffmpeg.setFfmpegPath(ffmpegPath);
+// const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1-essentials_build\\bin\\ffmpeg.exe';  // Make sure this is correct
+// ffmpeg.setFfmpegPath(ffmpegPath);
 /**
  * A controller to handle file uploads using multipart/form-data media type
  */
