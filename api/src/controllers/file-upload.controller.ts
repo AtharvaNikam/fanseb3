@@ -16,9 +16,12 @@ import path from 'path';
 import {promisify} from 'util';
 import {FILE_UPLOAD_SERVICE, STORAGE_DIRECTORY} from '../keys';
 import {FileUploadHandler} from '../types';
+import ffmpeg from 'fluent-ffmpeg';
 
 const readdir = promisify(fs.readdir);
 
+const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1-essentials_build\\bin\\ffmpeg.exe';  // Make sure this is correct
+ffmpeg.setFfmpegPath(ffmpegPath);
 /**
  * A controller to handle file uploads using multipart/form-data media type
  */
@@ -27,6 +30,30 @@ export class FileUploadController {
     @inject(FILE_UPLOAD_SERVICE) private handler: FileUploadHandler,
     @inject(STORAGE_DIRECTORY) private storageDirectory: string,
   ) {}
+
+  static async compressVideo(inputPath: string, outputPath: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      ffmpeg(inputPath)
+        .outputOptions([
+          '-vcodec libx264', // H.264 codec for compression
+          '-crf 28',         // Quality (lower value = better quality)
+          '-preset fast',    // Speed/Compression balance
+          '-movflags faststart', // Optimize for web streaming
+        ])
+        .on('start', (command : any) => {
+          console.log('FFmpeg command:', command);
+        })
+        .on('error', (err : any) => {
+          console.error('Compression error:', err.message);
+          reject(err);
+        })
+        .on('end', () => {
+          console.log('Video compression complete:', outputPath);
+          resolve();
+        })
+        .save(outputPath);
+    });
+  }
 
   @authenticate('jwt')
   @post('/files', {
@@ -64,9 +91,33 @@ export class FileUploadController {
    * Get files and fields for the request
    * @param request - Http request
    */
-  private static getFilesAndFields(request: Request) {
+  private static async getFilesAndFields(request: Request) {
     const uploadedFiles = request.files;
-    const mapper = (f: globalThis.Express.Multer.File) => {
+    console.log('uploadedfiles', uploadedFiles);
+  
+    const mapper = async (f: globalThis.Express.Multer.File) => {
+      if (f.mimetype.startsWith('video/')) {
+        // Log the size before compression
+        const originalSize = f.size;
+        console.log(`Original video size: ${originalSize} bytes`);
+  
+        const compressedFileName = `compressed_${f.filename}`;
+        const compressedFilePath = path.resolve(path.dirname(f.path), compressedFileName);
+  
+        console.log(`Compressing video: ${f.path}`);
+        await this.compressVideo(f.path, compressedFilePath);
+  
+        // Log the size after compression
+        const compressedSize = fs.statSync(compressedFilePath).size;
+        console.log(`Compressed video size: ${compressedSize} bytes`);
+  
+        // Replace the original file with the compressed file
+        fs.unlinkSync(f.path);
+        fs.renameSync(compressedFilePath, f.path);
+  
+        console.log(`Video compressed and saved as: ${f.path}`);
+      }
+  
       return {
         fieldname: f.fieldname,
         fileName: f.originalname,
@@ -76,17 +127,19 @@ export class FileUploadController {
         size: f.size,
       };
     };
+  
     let files: object[] = [];
     if (Array.isArray(uploadedFiles)) {
-      files = uploadedFiles.map(mapper);
+      files = await Promise.all(uploadedFiles.map(mapper));
     } else {
       for (const filename in uploadedFiles) {
-        files.push(...uploadedFiles[filename].map(mapper));
+        files.push(...(await Promise.all(uploadedFiles[filename].map(mapper))));
       }
     }
-
-    return {files, fields: request.body};
+  
+    return { files, fields: request.body };
   }
+  
 
   @get('/files', {
     responses: {
@@ -182,7 +235,6 @@ export class FileUploadController {
           'Content-Type': await this.getContentType(file),
         });
   
-        console.log(`Serving file in range mode: ${start}-${end}`);
         fileStream.pipe(response);
       } else {
         // Serve the entire file
@@ -191,7 +243,6 @@ export class FileUploadController {
           'Content-Type': await this.getContentType(file),
         });
   
-        console.log('Serving entire file.');
         fs.createReadStream(file).pipe(response);
       }
     } catch (error) {
