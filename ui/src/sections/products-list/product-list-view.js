@@ -33,6 +33,7 @@ export default function ProductListView() {
             const response = await axiosInstance.post('/filtered-products', data); // send page and limit as part of the data payload
     
             if (response?.data?.success) {
+                console.log('response', response);
                 setData(response?.data?.data); // update state with paginated product data
                 setTotalPages(response?.data?.totalPages);
             }
