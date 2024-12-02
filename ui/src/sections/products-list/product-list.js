@@ -10,7 +10,7 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
   const router = useRouter();
   const data = productData;
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(totalPagesCount);
+  const totalPages = totalPagesCount;
   const [loading, setLoading] = useState(false);
   const itemsPerPage = 16;
 
