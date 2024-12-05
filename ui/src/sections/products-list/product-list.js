@@ -69,7 +69,6 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
             ))}
           </Grid>
 
-          {isMdUp && (
             <Box display="flex" justifyContent="center" my={2}>
               <Pagination
                 count={totalPages}
@@ -78,7 +77,6 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
                 color="primary"
               />
             </Box>
-          )}
         </>
       )}
     </Box>
