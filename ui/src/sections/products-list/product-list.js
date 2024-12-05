@@ -39,6 +39,7 @@ export default function ProductList({productData, totalPagesCount, fetchProducts
   // };
 
   const handlePageChange = (event, value) => {
+    console.log('value',value);
     setCurrentPage(value);
     setLoading(true);
     fetchProductsData({ page: value, limit: itemsPerPage }).then(() => {

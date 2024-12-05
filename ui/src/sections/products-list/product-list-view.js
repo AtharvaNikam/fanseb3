@@ -13,12 +13,16 @@ export default function ProductListView() {
     const [data, setData] = useState([]);
     const [totalPages, setTotalPages] = useState();
 
-    const fetchProductsData = async ({ categoryId, priceRange, sortBy, discount, page = 1, limit = 16 } = {}) => {
+    const fetchProductsData = async ({ categoryId, priceRange, sortBy, discount, page, limit } = {}) => {
         try {
-            let data = { page, limit }; // include page and limit in the data object
+            let data = { 
+                page : page || 1, 
+                limit : limit || 16 }; // include page and limit in the data object
+
+            console.log(data);
     
             if (categoryId) {
-                data.categoryId = categoryId;
+                data.categoryId = Number(categoryId);
             }
             if (priceRange) {
                 data.priceRange = priceRange;
@@ -103,7 +107,7 @@ export default function ProductListView() {
                         </Grid>
                     )}
                     <Grid item md={9} xs={12}>
-                        <ProductList productData={data} totalPagesCount={totalPages} fetchProductsData = {() => fetchProductsData()}/>
+                        <ProductList productData={data} totalPagesCount={totalPages} fetchProductsData = {fetchProductsData}/>
                     </Grid>
                 </Grid>
             </Box>
