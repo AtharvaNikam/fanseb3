@@ -26,7 +26,7 @@ export default function InfluencerView() {
   const offsetTop = useOffSetTop(HEADER.H_DESKTOP + 90);
   const [reels, setReels] = useState([]);
   const [skip, setSkip] = useState(0);
-  const { reelId } = useParams();
+  const reelId = undefined;
   const swiperRef = useRef();
 
   const handleNextSlide = useCallback(() => {
@@ -38,11 +38,8 @@ export default function InfluencerView() {
   }, []);
 
   const fetchAllReelsWithoutId = useCallback(async () => {
-    try {
-      console.log('reelId', reelId);
-  
+    try {  
       if (reelId !== null && reelId !== undefined && !Number.isNaN(Number(reelId))) { 
-        console.log('Entered block with reelId');
         
         const reqData = {
           id: Number(reelId),
