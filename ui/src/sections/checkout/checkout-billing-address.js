@@ -64,7 +64,7 @@ export default function CheckoutBillingAddress({
           address: updatedAddress,
         },
       };
-      await axiosInstance.patch(`${HOST_API}/api/users/${user?.id}`, inputData);
+      await axiosInstance.patch(`${HOST_API}api/users/${user?.id}`, inputData);
       const res = await axiosInstance.get(`${HOST_API}me`);
       setAddressBooks(res?.data?.userProfile?.address);
       updateLoading.onFalse();
