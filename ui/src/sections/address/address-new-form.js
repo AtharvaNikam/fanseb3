@@ -108,7 +108,7 @@ export default function AddressNewForm({ open, onClose, onCreate, setAddressBook
       axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
       if (user) {
-        const requestUrl = `${HOST_API}api/users/${user.id}`;
+        const requestUrl = `${HOST_API}/api/users/${user.id}`;
         const requestPayload = addressBooks
           ? inputDataAll
           : { userProfile: { address: [createAddress] } };
