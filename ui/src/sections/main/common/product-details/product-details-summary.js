@@ -88,6 +88,7 @@ export default function ProductDetailsSummary({
 
   const onSubmit = handleSubmit(async (data) => {
     try {
+      console.log('data', data);
       if (!existProduct) {
         onAddCart({
           ...data,
@@ -103,6 +104,7 @@ export default function ProductDetailsSummary({
 
   const handleAddCart = useCallback(() => {
     try {
+      console.log('values', values)
       onAddCart({
         ...values,
         subTotal: values.sale_price * values.quantity,

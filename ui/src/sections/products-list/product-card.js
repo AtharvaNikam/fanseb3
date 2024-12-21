@@ -14,11 +14,14 @@ export default function ProductCard({ product, handleViewProductDetails }) {
   const [displayProduct, setDisplayProduct] = useState(product);
 
   const handleAddCart = useCallback(() => {
+    console.log('17',displayProduct);
     const newProduct = {
       ...displayProduct,
+      inventoryQuantity : displayProduct.quantity,
       quantity: 1,
       image: { fileUrl: displayProduct.image.fileUrl },
     };
+    console.log('newProd', newProduct);
     try {
       dispatch(addToCart(newProduct));
     } catch (error) {
